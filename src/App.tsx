@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
+import { DisplayModeControl } from './components';
+import { useMountEffect } from './hooks';
+import { displayMode } from './store';
+import DisplayModeType from './types/DisplayModeType';
 
-function App() {
+const App = () => {
+  const [displayTheme, setDisplayTheme] = useRecoilState(displayMode);
+
+  const initializeDisplayTheme = () => {
+    const isBrowserDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let initTheme: DisplayModeType = isBrowserDarkMode ? 'dark' : 'light';
+    const localSettingTheme = window.localStorage.getItem('theme') as DisplayModeType;
+
+    localSettingTheme && (initTheme = localSettingTheme);
+
+    setDisplayTheme(initTheme);
+  };
+
+  useMountEffect(() => initializeDisplayTheme());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout browserMode={displayTheme}>
+      <span>Test</span>
+      <DisplayModeControl />
+    </Layout>
   );
-}
+};
 
 export default App;
+
+const Layout = styled.div<{ browserMode: DisplayModeType }>`
+  width: 100vw;
+  height: 100vh;
+  ${(props) => props.theme[props.browserMode].colors.body};
+`;
