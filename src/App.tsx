@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { DisplayModeControl } from './components';
+import { Header } from './components';
 import { useMountEffect } from './hooks';
 import { displayMode } from './store';
 import DisplayModeType from './types/DisplayModeType';
@@ -22,8 +22,7 @@ const App = () => {
 
   return (
     <Layout browserMode={displayTheme}>
-      <span>Test</span>
-      <DisplayModeControl />
+      <Header />
     </Layout>
   );
 };
@@ -33,5 +32,8 @@ export default App;
 const Layout = styled.div<{ browserMode: DisplayModeType }>`
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   ${(props) => props.theme[props.browserMode].colors.body};
 `;

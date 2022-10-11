@@ -1,24 +1,32 @@
 import { css } from 'styled-components';
 import DisplayModeModel from './types/DisplayModeModel';
 
-const light: DisplayModeModel = {
+const light = {
   colors: {
     body: css`
       background-color: #fff;
       color: #000;
     `,
+    header: css`
+      background-color: #fff;
+      border-bottom: 2px solid #232323;
+    `,
   },
 };
 
-const dark: DisplayModeModel = {
+const dark = {
   colors: {
     body: css`
       background-color: #121212;
       color: #fff;
     `,
+    header: css`
+      background-color: #454545;
+      border-bottom: 2px solid #898989;
+    `,
   },
 };
 
-export const theme = { light, dark };
+export const theme: DisplayModeModel = { light, dark };
 
 export type Theme = typeof theme;

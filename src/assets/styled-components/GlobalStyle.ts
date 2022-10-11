@@ -14,6 +14,10 @@ const GlobalStyle = createGlobalStyle`
     touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
   }
+
+  * {
+    transition: background-color 300ms, color 300ms, border 300ms, fill 300ms;
+  }
 `;
 
 export default GlobalStyle;

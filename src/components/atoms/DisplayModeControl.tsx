@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import { displayMode } from '../../store';
+import sun from '../../assets/images/sun.png';
+import moon from '../../assets/images/moon.png';
 
 interface StyledProps {
   isDarkMode: boolean;
@@ -20,8 +22,7 @@ const DisplayModeControl = (): JSX.Element => {
   return (
     <Box isDarkMode={isDarkMode}>
       <input type="checkbox" checked={isDarkMode} onChange={() => reverseDisplayMode()} hidden />
-      <Background isDarkMode={isDarkMode}></Background>
-      <Rectangle isDarkMode={isDarkMode} />
+      <DarkMode src={isDarkMode ? moon : sun} isDarkMode={isDarkMode} />
     </Box>
   );
 };
@@ -32,67 +33,23 @@ const Box = styled.label<StyledProps>`
   display: flex;
   align-items: center;
   position: relative;
-  min-width: 44px;
-  min-height: 22px;
-  max-width: max-content;
-  padding: 2px;
-  border-radius: 16px;
   box-sizing: border-box;
-  background-color: ${(props) => (props.isDarkMode ? 'blue' : 'lightgrey')};
   cursor: pointer;
   user-select: none;
-
-  &:active:hover {
-    & > div:last-of-type {
-      width: calc(24px);
-
-      ${(props) =>
-        props.isDarkMode &&
-        css`
-          left: calc(100% - 26px);
-        `}
-    }
-  }
 
   * {
     -webkit-user-drag: none;
   }
 `;
 
-const Background = styled.div<StyledProps>`
-  width: 100%;
-  display: flex;
-  align-items: center;
+const DarkMode = styled.img<{ isDarkMode: boolean }>`
+  max-width: 20px;
+  max-height: 20px;
+  cursor: pointer;
 
   ${(props) =>
-    props.isDarkMode
-      ? css`
-          justify-content: flex-start;
-          margin-left: 4px;
-          margin-right: 22px;
-        `
-      : css`
-          justify-content: flex-end;
-          margin-right: 4px;
-          margin-left: 22px;
-        `};
-`;
-
-const Rectangle = styled.div<StyledProps>`
-  width: 18px;
-  height: 18px;
-  position: absolute;
-
-  ${(props) =>
-    props.isDarkMode
-      ? css`
-          left: calc(100% - 20px);
-        `
-      : css`
-          left: 2px;
-        `}
-  transition: left 200ms, width 200ms;
-  border-radius: 16px;
-  background-color: white;
-  filter: drop-shadow(0px 2px 4px rgba(0, 35, 11, 0.2));
+    props.isDarkMode &&
+    css`
+      filter: invert(100%) sepia(5%) saturate(5849%) hue-rotate(166deg) brightness(105%) contrast(104%);
+    `}
 `;

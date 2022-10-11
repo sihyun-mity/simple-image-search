@@ -1,7 +1,14 @@
 import { FlattenSimpleInterpolation } from 'styled-components';
 
 export default interface DisplayModeModel {
-  colors: {
-    body: FlattenSimpleInterpolation;
+  light: {
+    colors: {
+      [props: string]: FlattenSimpleInterpolation;
+    };
+  };
+  dark: {
+    colors: {
+      [props: string]: FlattenSimpleInterpolation;
+    };
   };
 }
