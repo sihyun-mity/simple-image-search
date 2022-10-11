@@ -1,28 +1,29 @@
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { displayMode } from '../../store';
-import DisplayModeType from '../../types/DisplayModeType';
+import { displayMode, isDarkMode } from '../../store';
 import { DisplayModeControl } from '../atoms';
 import { ReactComponent as Logo } from '../../assets/images/SimpleImageSearch_Logo.svg';
 import search from '../../assets/images/search.png';
+import DisplayModePropsType from '../../types/DisplayModePropsType';
 
-const Header = () => {
+const Header = (): JSX.Element => {
   const displayTheme = useRecoilValue(displayMode);
+  const darkModeState = useRecoilValue(isDarkMode);
 
   const returnHome = () => window.location.assign('/');
 
   return (
-    <Box browserMode={displayTheme}>
+    <Box displayTheme={displayTheme} darkModeState={darkModeState}>
       <DisplayModeControl />
       <Logo onClick={() => returnHome()} />
-      <SearchIcon src={search} isDarkMode={displayTheme === 'dark' ? true : false} />
+      <SearchIcon src={search} darkModeState={displayTheme === 'dark' ? true : false} />
     </Box>
   );
 };
 
 export default Header;
 
-const Box = styled.header<{ browserMode: DisplayModeType }>`
+const Box = styled.header<DisplayModePropsType>`
   height: 56px;
   display: flex;
   justify-content: space-between;
@@ -30,7 +31,7 @@ const Box = styled.header<{ browserMode: DisplayModeType }>`
   padding: 12px 16px;
   box-sizing: border-box;
 
-  ${(props) => props.theme[props.browserMode].colors.header};
+  ${(props) => props.displayTheme && props.theme[props.displayTheme].colors.header};
 
   & > svg {
     width: 70%;
@@ -39,18 +40,18 @@ const Box = styled.header<{ browserMode: DisplayModeType }>`
     cursor: pointer;
 
     path {
-      fill: ${(props) => (props.browserMode === 'dark' ? '#fff' : '#000')};
+      fill: ${(props) => (props.darkModeState ? '#fff' : '#000')};
     }
   }
 `;
 
-const SearchIcon = styled.img<{ isDarkMode: boolean }>`
+const SearchIcon = styled.img<DisplayModePropsType>`
   max-width: 20px;
   max-height: 20px;
   cursor: pointer;
 
   ${(props) =>
-    props.isDarkMode &&
+    props.darkModeState &&
     css`
       filter: invert(100%) sepia(5%) saturate(5849%) hue-rotate(166deg) brightness(105%) contrast(104%);
     `}

@@ -1,12 +1,13 @@
-import { useRecoilState } from 'recoil';
-import styled from 'styled-components';
-import { Header } from './components';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { Container } from './components';
 import { useMountEffect } from './hooks';
+import { Home } from './pages';
 import { displayMode } from './store';
 import DisplayModeType from './types/DisplayModeType';
 
-const App = () => {
-  const [displayTheme, setDisplayTheme] = useRecoilState(displayMode);
+const App = (): JSX.Element => {
+  const setDisplayTheme = useSetRecoilState(displayMode);
 
   const initializeDisplayTheme = () => {
     const isBrowserDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -21,19 +22,16 @@ const App = () => {
   useMountEffect(() => initializeDisplayTheme());
 
   return (
-    <Layout browserMode={displayTheme}>
-      <Header />
-    </Layout>
+    <Container>
+      <BrowserRouter>
+        <Routes>
+          <Route path="*">
+            <Route path="" element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Container>
   );
 };
 
 export default App;
-
-const Layout = styled.div<{ browserMode: DisplayModeType }>`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-
-  ${(props) => props.theme[props.browserMode].colors.body};
-`;
