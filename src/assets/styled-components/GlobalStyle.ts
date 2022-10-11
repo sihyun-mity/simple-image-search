@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     user-select: none;
     touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
   }
 
   * {

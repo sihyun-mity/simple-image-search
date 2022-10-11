@@ -10,7 +10,7 @@ const Header = (): JSX.Element => {
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
 
-  const returnHome = () => window.location.assign('/');
+  const returnHome = (): void => window.location.assign('/');
 
   return (
     <Box displayTheme={displayTheme} darkModeState={darkModeState}>
@@ -28,14 +28,14 @@ const Box = styled.header<DisplayModePropsType>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
+  padding: 12px 20px;
   box-sizing: border-box;
 
   ${(props) => props.displayTheme && props.theme[props.displayTheme].colors.header};
 
   & > svg {
-    width: 70%;
-    height: 70%;
+    width: 75%;
+    height: 75%;
     margin: 0 8px;
     cursor: pointer;
 

@@ -13,7 +13,7 @@ const DisplayModeControl = (): JSX.Element => {
   const [displayTheme, setDisplayTheme] = useRecoilState(displayMode);
   const isDarkMode: boolean = useMemo(() => (displayTheme === 'dark' ? true : false), [displayTheme]);
 
-  const reverseDisplayMode = () => {
+  const reverseDisplayMode = (): void => {
     const reverseMode = displayTheme === 'light' ? 'dark' : 'light';
     window.localStorage.setItem('theme', reverseMode);
     setDisplayTheme(reverseMode);
