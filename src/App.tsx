@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Container } from './components';
-import { useMountEffect } from './hooks';
+import { OptimizeEvent, useMountEffect } from './hooks';
 import { Home } from './pages';
 import { displayMode, responsiveType, viewHeight } from './store';
 import DisplayModeType from './types/DisplayModeType';
@@ -37,8 +37,8 @@ const App = (): JSX.Element => {
     initializeDisplayTheme();
     calculateViewHeight();
     detectResponsiveType();
-    window.addEventListener('resize', calculateViewHeight);
-    window.addEventListener('resize', detectResponsiveType);
+    window.addEventListener('resize', OptimizeEvent(calculateViewHeight));
+    window.addEventListener('resize', OptimizeEvent(detectResponsiveType));
 
     return () => {
       window.removeEventListener('resize', calculateViewHeight);

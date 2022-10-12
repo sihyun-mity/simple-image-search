@@ -20,7 +20,8 @@ const Home = (): JSX.Element => {
   const getBackgroundImage = async (): Promise<void> => {
     try {
       const { innerWidth, innerHeight } = window;
-      const picsum = await fetch(`https://picsum.photos/${innerWidth}/${innerHeight}?blur`);
+      const size: number = innerWidth > innerHeight ? innerWidth : innerHeight;
+      const picsum = await fetch(`https://picsum.photos/${size}?blur`);
       setImage(picsum.url);
       setTransition(true);
       setTimeout(() => setTransition(false), 300);
@@ -29,12 +30,7 @@ const Home = (): JSX.Element => {
     }
   };
 
-  useMountEffect(() => {
-    getBackgroundImage();
-    window.addEventListener('resize', getBackgroundImage);
-
-    return () => window.removeEventListener('resize', getBackgroundImage);
-  });
+  useMountEffect(() => getBackgroundImage());
 
   return (
     <Box
@@ -85,7 +81,7 @@ const Box = styled.article<BoxPropsType>`
   ${(props) =>
     props.image &&
     css`
-      background: url(${props.image}) no-repeat;
+      background: url(${props.image}) center no-repeat;
     `}
 
   &::after {

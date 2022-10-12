@@ -5,7 +5,7 @@ import { DisplayModeControl } from '../atoms';
 import { ReactComponent as Logo } from '../../assets/images/SimpleImageSearch_Logo.svg';
 import search from '../../assets/images/search.png';
 import DisplayModePropsType from '../../types/DisplayModePropsType';
-import useCustomNavigate from '../../hooks/useCustomNavigate';
+import { useCustomNavigate } from '../../hooks';
 
 const Header = (): JSX.Element => {
   const displayTheme = useRecoilValue(displayMode);
