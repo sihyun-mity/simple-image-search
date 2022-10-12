@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
-import { useMountEffect } from '../hooks';
-import { isDarkMode, isMobile } from '../store';
+import { useMountEffect } from '../../hooks';
+import { isDarkMode } from '../../store';
+import { Attribution } from './components';
 
 interface BoxPropsType {
   width: number;
@@ -14,7 +15,6 @@ interface BoxPropsType {
 
 const Home = (): JSX.Element => {
   const darkModeState = useRecoilValue(isDarkMode);
-  const mobileDevice = useRecoilValue(isMobile);
   const [image, setImage] = useState<string>('');
   const [transition, setTransition] = useState<boolean>(false);
 
@@ -41,22 +41,8 @@ const Home = (): JSX.Element => {
       image={image}
       $transition={transition}
     >
-      <StartMargin />
       <StartUp darkModeState={darkModeState}>Search anything to get started!</StartUp>
-      <AttributesFooter mobileDevice={mobileDevice}>
-        <Attribute href="https://www.flaticon.com/free-icons/photo" title="photo icons">
-          Photo icons created by Freepik
-        </Attribute>
-        <Attribute href="https://www.flaticon.com/free-icons/moon" title="moon icons">
-          Moon icons created by Good Ware
-        </Attribute>
-        <Attribute href="https://www.flaticon.com/free-icons/search" title="search icons">
-          Search icons created by Smashicons
-        </Attribute>
-        <Attribute href="https://picsum.photos" title="Lorem Picsum">
-          Background images used by Lorem Picsum
-        </Attribute>
-      </AttributesFooter>
+      <Attribution />
     </Box>
   );
 };
@@ -77,10 +63,11 @@ const Box = styled.article<BoxPropsType>`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: relative;
   margin: unset;
+  padding: 0 20px;
 
   ${(props) =>
     props.image &&
@@ -110,37 +97,14 @@ const Box = styled.article<BoxPropsType>`
   }
 
   & > * {
-    position: relative;
     z-index: 1;
-    margin: 0 20px;
   }
 `;
 
-const StartMargin = styled.div`
-  height: 16px;
-`;
-
 const StartUp = styled.h1<{ darkModeState: boolean }>`
+  position: relative;
   font-size: 1.8rem;
   text-align: center;
   -webkit-text-stroke: 0.6px ${(props) => (props.darkModeState ? `#000` : `#fff`)};
   transition: -webkit-text-stroke 300ms;
-`;
-
-const AttributesFooter = styled.footer<{ mobileDevice: boolean }>`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-  margin-right: ${(props) => !props.mobileDevice && `auto`};
-
-  & > *:not(:last-child) {
-    margin-bottom: 4px;
-  }
-`;
-
-const Attribute = styled.a`
-  font-size: 0.8rem;
-  font-weight: lighter;
-  color: #808080;
-  text-decoration: none;
 `;

@@ -3,6 +3,10 @@ import normalize from 'styled-normalize';
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
+
+  * {
+    transition: background-color 300ms, color 300ms, border 300ms, fill 300ms;
+  }
   
   body {
     background-color: #fff;
@@ -16,8 +20,8 @@ const GlobalStyle = createGlobalStyle`
     -webkit-touch-callout: none;
   }
 
-  * {
-    transition: background-color 300ms, color 300ms, border 300ms, fill 300ms;
+  button {
+    padding: 0;
   }
 `;
 

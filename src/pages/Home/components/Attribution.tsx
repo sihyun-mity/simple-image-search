@@ -1,0 +1,98 @@
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import styled, { css, keyframes } from 'styled-components';
+import arrow from '../../../assets/images/chevron-upwards-arrow.png';
+import { isMobile } from '../../../store';
+
+const Attribution = () => {
+  const [open, setOpen] = useState(false);
+  const mobileDevice = useRecoilValue(isMobile);
+
+  return (
+    <Box>
+      {mobileDevice && (
+        <Button onClick={() => setOpen((prev) => !prev)}>
+          <Text>Attributes</Text>
+          <Arrow src={arrow} open={open} />
+        </Button>
+      )}
+      {(open || !mobileDevice) && (
+        <Attributes mobileDevice={mobileDevice} open={open}>
+          <Attribute href="https://www.flaticon.com/free-icons/photo" title="photo icons">
+            Photo icons created by Freepik
+          </Attribute>
+          <Attribute href="https://www.flaticon.com/free-icons/moon" title="moon icons">
+            Moon icons created by Good Ware
+          </Attribute>
+          <Attribute href="https://www.flaticon.com/free-icons/search" title="search icons">
+            Search icons created by Smashicons
+          </Attribute>
+          <Attribute href="https://picsum.photos" title="Lorem Picsum">
+            Background images used by Lorem Picsum
+          </Attribute>
+        </Attributes>
+      )}
+    </Box>
+  );
+};
+
+export default Attribution;
+
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 12px;
+`;
+
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  background: unset;
+  border: unset;
+  padding: 4px;
+`;
+
+const Text = styled.label`
+  font-size: 0.8rem;
+  color: #808080;
+`;
+
+const Arrow = styled.img<{ open: boolean }>`
+  max-width: 10px;
+  max-height: 10px;
+  margin-left: 4px;
+  filter: invert(56%) sepia(0%) saturate(0%) hue-rotate(230deg) brightness(90%) contrast(87%);
+  transform: ${(props) => (props.open ? `rotate(180deg)` : `rotate(0)`)};
+  transition: transform 200ms;
+`;
+
+const Attributes = styled.footer<{ mobileDevice: boolean; open: boolean }>`
+  display: flex;
+  flex-direction: column;
+
+  ${(props) =>
+    props.mobileDevice
+      ? css`
+          margin-top: 4px;
+          transform: ${props.open ? `translate3d(0, 0, 0)` : `translate3d(0, 100%, 0)`};
+          transition: transform 200ms;
+        `
+      : css`
+          position: fixed;
+          left: 20px;
+          bottom: 16px;
+        `}
+
+  & > *:not(:last-child) {
+    margin-bottom: 4px;
+  }
+`;
+
+const Attribute = styled.a`
+  font-size: 0.8rem;
+  font-weight: lighter;
+  color: #808080;
+  text-decoration: none;
+`;
