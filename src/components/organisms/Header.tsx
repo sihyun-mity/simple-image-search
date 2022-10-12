@@ -5,12 +5,14 @@ import { DisplayModeControl } from '../atoms';
 import { ReactComponent as Logo } from '../../assets/images/SimpleImageSearch_Logo.svg';
 import search from '../../assets/images/search.png';
 import DisplayModePropsType from '../../types/DisplayModePropsType';
+import useCustomNavigate from '../../hooks/useCustomNavigate';
 
 const Header = (): JSX.Element => {
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
+  const navigate = useCustomNavigate();
 
-  const returnHome = (): void => window.location.assign('/');
+  const returnHome = (): void => navigate('', { replace: true });
 
   return (
     <Box displayTheme={displayTheme} darkModeState={darkModeState}>
