@@ -45,6 +45,7 @@ const Box = styled.label<StyledProps>`
 const DarkMode = styled.img<{ isDarkMode: boolean }>`
   max-width: 20px;
   max-height: 20px;
+  padding: 4px;
   cursor: pointer;
 
   ${(props) =>

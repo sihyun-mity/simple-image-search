@@ -50,6 +50,7 @@ const Box = styled.header<DisplayModePropsType>`
 const SearchIcon = styled.img<DisplayModePropsType>`
   max-width: 20px;
   max-height: 20px;
+  padding: 4px;
   cursor: pointer;
 
   ${(props) =>
