@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
 import { useMountEffect } from '../hooks';
-import { isDarkMode } from '../store';
+import { isDarkMode, isMobile } from '../store';
 
 interface BoxPropsType {
   width: number;
@@ -14,6 +14,7 @@ interface BoxPropsType {
 
 const Home = (): JSX.Element => {
   const darkModeState = useRecoilValue(isDarkMode);
+  const mobileDevice = useRecoilValue(isMobile);
   const [image, setImage] = useState<string>('');
   const [transition, setTransition] = useState<boolean>(false);
 
@@ -42,7 +43,7 @@ const Home = (): JSX.Element => {
     >
       <StartMargin />
       <StartUp darkModeState={darkModeState}>Search anything to get started!</StartUp>
-      <AttributesFooter>
+      <AttributesFooter mobileDevice={mobileDevice}>
         <Attribute href="https://www.flaticon.com/free-icons/moon" title="moon icons">
           Moon icons created by Good Ware - Flaticon
         </Attribute>
@@ -106,6 +107,8 @@ const Box = styled.article<BoxPropsType>`
   }
 
   & > * {
+    position: relative;
+    z-index: 1;
     margin: 0 20px;
   }
 `;
@@ -115,18 +118,17 @@ const StartMargin = styled.div`
 `;
 
 const StartUp = styled.h1<{ darkModeState: boolean }>`
-  position: relative;
-  z-index: 1;
   font-size: 1.8rem;
   text-align: center;
   -webkit-text-stroke: 0.6px ${(props) => (props.darkModeState ? `#000` : `#fff`)};
   transition: -webkit-text-stroke 300ms;
 `;
 
-const AttributesFooter = styled.footer`
+const AttributesFooter = styled.footer<{ mobileDevice: boolean }>`
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
+  margin-right: ${(props) => !props.mobileDevice && `auto`};
 
   & > *:not(:last-child) {
     margin-bottom: 4px;

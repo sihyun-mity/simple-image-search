@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { displayMode, isDarkMode } from '../../store';
+import { displayMode, isDarkMode, isMobile } from '../../store';
 import { DisplayModeControl } from '../atoms';
 import { ReactComponent as Logo } from '../../assets/images/SimpleImageSearch_Logo.svg';
 import search from '../../assets/images/search.png';
@@ -10,16 +10,23 @@ import { useCustomNavigate } from '../../hooks';
 const Header = (): JSX.Element => {
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
+  const mobileDevice = useRecoilValue(isMobile);
   const navigate = useCustomNavigate();
 
   const returnHome = (): void => navigate('', { replace: true });
 
-  return (
+  return mobileDevice ? (
     <Box displayTheme={displayTheme} darkModeState={darkModeState}>
       <DisplayModeControl />
       <Logo onClick={() => returnHome()} />
       <SearchIcon src={search} darkModeState={darkModeState} />
     </Box>
+  ) : (
+    <DesktopBox displayTheme={displayTheme} darkModeState={darkModeState}>
+      <Logo onClick={() => returnHome()} />
+      <DesktopSearchIcon src={search} darkModeState={darkModeState} />
+      <DisplayModeControl />
+    </DesktopBox>
   );
 };
 
@@ -47,6 +54,14 @@ const Box = styled.header<DisplayModePropsType>`
   }
 `;
 
+const DesktopBox = styled(Box)`
+  justify-content: flex-start;
+
+  & > svg {
+    margin: 0 auto 0 0;
+  }
+`;
+
 const SearchIcon = styled.img<DisplayModePropsType>`
   max-width: 20px;
   max-height: 20px;
@@ -58,4 +73,8 @@ const SearchIcon = styled.img<DisplayModePropsType>`
     css`
       filter: invert(100%) sepia(5%) saturate(5849%) hue-rotate(166deg) brightness(105%) contrast(104%);
     `}
+`;
+
+const DesktopSearchIcon = styled(SearchIcon)`
+  margin-right: 10px;
 `;
