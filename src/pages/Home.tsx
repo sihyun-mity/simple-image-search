@@ -44,7 +44,19 @@ const Home = (): JSX.Element => {
       image={image}
       $transition={transition}
     >
+      <StartMargin />
       <StartUp darkModeState={darkModeState}>Search anything to get started!</StartUp>
+      <AttributesFooter>
+        <Attribute href="https://www.flaticon.com/free-icons/moon" title="moon icons">
+          Moon icons created by Good Ware - Flaticon
+        </Attribute>
+        <Attribute href="https://www.flaticon.com/free-icons/search" title="search icons">
+          Search icons created by Smashicons - Flaticon
+        </Attribute>
+        <Attribute href="https://picsum.photos" title="Lorem Picsum">
+          Background images used by Lorem Picsum
+        </Attribute>
+      </AttributesFooter>
     </Box>
   );
 };
@@ -65,7 +77,7 @@ const Box = styled.article<BoxPropsType>`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   position: relative;
   margin: unset;
@@ -96,14 +108,38 @@ const Box = styled.article<BoxPropsType>`
 
     transition: background-color 300ms;
   }
+
+  & > * {
+    margin: 0 20px;
+  }
+`;
+
+const StartMargin = styled.div`
+  height: 16px;
 `;
 
 const StartUp = styled.h1<{ darkModeState: boolean }>`
   position: relative;
   z-index: 1;
-  margin: 0;
   font-size: 1.8rem;
   text-align: center;
   -webkit-text-stroke: 0.6px ${(props) => (props.darkModeState ? `#000` : `#fff`)};
   transition: -webkit-text-stroke 300ms;
+`;
+
+const AttributesFooter = styled.footer`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+
+  & > *:not(:last-child) {
+    margin-bottom: 4px;
+  }
+`;
+
+const Attribute = styled.a`
+  font-size: 0.8rem;
+  font-weight: lighter;
+  color: #808080;
+  text-decoration: none;
 `;
