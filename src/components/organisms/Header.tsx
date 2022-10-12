@@ -18,7 +18,7 @@ const Header = (): JSX.Element => {
     <Box displayTheme={displayTheme} darkModeState={darkModeState}>
       <DisplayModeControl />
       <Logo onClick={() => returnHome()} />
-      <SearchIcon src={search} darkModeState={displayTheme === 'dark' ? true : false} />
+      <SearchIcon src={search} darkModeState={darkModeState} />
     </Box>
   );
 };
@@ -36,7 +36,7 @@ const Box = styled.header<DisplayModePropsType>`
   ${(props) => props.displayTheme && props.theme[props.displayTheme].colors.header};
 
   & > svg {
-    width: 70%;
+    max-width: 70%;
     height: 70%;
     margin: 0 8px;
     cursor: pointer;
