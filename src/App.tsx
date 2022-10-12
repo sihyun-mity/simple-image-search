@@ -31,15 +31,13 @@ const App = (): JSX.Element => {
   });
 
   return (
-    <Container>
-      <BrowserRouter>
-        <Routes>
-          <Route path="*">
-            <Route path="" element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </Container>
+    <BrowserRouter>
+      <Routes>
+        <Route path="simple-image-search/*" element={<Container />}>
+          <Route path="" element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

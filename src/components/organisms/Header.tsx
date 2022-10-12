@@ -34,8 +34,8 @@ const Box = styled.header<DisplayModePropsType>`
   ${(props) => props.displayTheme && props.theme[props.displayTheme].colors.header};
 
   & > svg {
-    width: 75%;
-    height: 75%;
+    width: 70%;
+    height: 70%;
     margin: 0 8px;
     cursor: pointer;
 
