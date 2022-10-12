@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import arrow from '../../../assets/images/chevron-upwards-arrow.png';
 import { isMobile } from '../../../store';
 
@@ -9,49 +9,55 @@ const Attribution = () => {
   const mobileDevice = useRecoilValue(isMobile);
 
   return (
-    <Box>
+    <Box open={open} mobileDevice={mobileDevice}>
       {mobileDevice && (
         <Button onClick={() => setOpen((prev) => !prev)}>
           <Text>Attributes</Text>
           <Arrow src={arrow} open={open} />
         </Button>
       )}
-      {(open || !mobileDevice) && (
-        <Attributes mobileDevice={mobileDevice} open={open}>
-          <Attribute href="https://www.flaticon.com/free-icons/photo" title="photo icons">
-            Photo icons created by Freepik
-          </Attribute>
-          <Attribute href="https://www.flaticon.com/free-icons/moon" title="moon icons">
-            Moon icons created by Good Ware
-          </Attribute>
-          <Attribute href="https://www.flaticon.com/free-icons/search" title="search icons">
-            Search icons created by Smashicons
-          </Attribute>
-          <Attribute href="https://picsum.photos" title="Lorem Picsum">
-            Background images used by Lorem Picsum
-          </Attribute>
-        </Attributes>
-      )}
+      <Attributes mobileDevice={mobileDevice}>
+        <Attribute href="https://www.flaticon.com/free-icons/photo" title="photo icons">
+          Photo icons created by Freepik
+        </Attribute>
+        <Attribute href="https://www.flaticon.com/free-icons/moon" title="moon icons">
+          Moon icons created by Good Ware
+        </Attribute>
+        <Attribute href="https://www.flaticon.com/free-icons/search" title="search icons">
+          Search icons created by Smashicons
+        </Attribute>
+        <Attribute href="https://picsum.photos" title="Lorem Picsum">
+          Background images used by Lorem Picsum
+        </Attribute>
+      </Attributes>
     </Box>
   );
 };
 
 export default Attribution;
 
-const Box = styled.div`
+const Box = styled.div<{ open: boolean; mobileDevice: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
   bottom: 12px;
+
+  ${(props) =>
+    props.mobileDevice &&
+    css`
+      transform: translate3d(${props.open ? `0, 0, 0` : `0, calc(100% + 12px - 32px), 0`});
+      transition: transform 200ms;
+    `}
 `;
 
 const Button = styled.button`
+  height: 32px;
   display: flex;
   align-items: center;
   background: unset;
   border: unset;
-  padding: 4px;
+  padding: 0 4px;
 `;
 
 const Text = styled.label`
@@ -68,7 +74,7 @@ const Arrow = styled.img<{ open: boolean }>`
   transition: transform 200ms;
 `;
 
-const Attributes = styled.footer<{ mobileDevice: boolean; open: boolean }>`
+const Attributes = styled.footer<{ mobileDevice: boolean }>`
   display: flex;
   flex-direction: column;
 
@@ -76,8 +82,7 @@ const Attributes = styled.footer<{ mobileDevice: boolean; open: boolean }>`
     props.mobileDevice
       ? css`
           margin-top: 4px;
-          transform: ${props.open ? `translate3d(0, 0, 0)` : `translate3d(0, 100%, 0)`};
-          transition: transform 200ms;
+          text-align: center;
         `
       : css`
           position: fixed;
