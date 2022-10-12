@@ -37,9 +37,12 @@ const Content = styled.section<{ vh: number }>`
   height: calc(${(props) => props.vh * 100}px - 56px);
   display: flex;
   flex-direction: column;
-  margin: 0 20px;
 
   * {
     transition: unset;
+  }
+
+  & > * {
+    margin: 0 20px;
   }
 `;

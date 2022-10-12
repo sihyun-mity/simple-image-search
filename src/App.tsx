@@ -3,12 +3,13 @@ import { useSetRecoilState } from 'recoil';
 import { Container } from './components';
 import { useMountEffect } from './hooks';
 import { Home } from './pages';
-import { displayMode, viewHeight } from './store';
+import { displayMode, responsiveType, viewHeight } from './store';
 import DisplayModeType from './types/DisplayModeType';
 
 const App = (): JSX.Element => {
   const setDisplayTheme = useSetRecoilState(displayMode);
   const setVh = useSetRecoilState(viewHeight);
+  const setResponsiveType = useSetRecoilState(responsiveType);
 
   const initializeDisplayTheme = (): void => {
     const isBrowserDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -20,14 +21,29 @@ const App = (): JSX.Element => {
     setDisplayTheme(initTheme);
   };
 
-  const handleResize = (): void => setVh(window.innerHeight * 0.01);
+  const calculateViewHeight = (): void => setVh(window.innerHeight * 0.01);
+
+  const detectResponsiveType = (): void => {
+    const width = window.innerWidth;
+
+    if (width < 768) {
+      setResponsiveType('mobile');
+    } else if (width < 1024) {
+      setResponsiveType('tablet');
+    } else setResponsiveType('pc');
+  };
 
   useMountEffect(() => {
     initializeDisplayTheme();
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    calculateViewHeight();
+    detectResponsiveType();
+    window.addEventListener('resize', calculateViewHeight);
+    window.addEventListener('resize', detectResponsiveType);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', calculateViewHeight);
+      window.removeEventListener('resize', detectResponsiveType);
+    };
   });
 
   return (
