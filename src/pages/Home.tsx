@@ -44,11 +44,14 @@ const Home = (): JSX.Element => {
       <StartMargin />
       <StartUp darkModeState={darkModeState}>Search anything to get started!</StartUp>
       <AttributesFooter mobileDevice={mobileDevice}>
+        <Attribute href="https://www.flaticon.com/free-icons/photo" title="photo icons">
+          Photo icons created by Freepik
+        </Attribute>
         <Attribute href="https://www.flaticon.com/free-icons/moon" title="moon icons">
-          Moon icons created by Good Ware - Flaticon
+          Moon icons created by Good Ware
         </Attribute>
         <Attribute href="https://www.flaticon.com/free-icons/search" title="search icons">
-          Search icons created by Smashicons - Flaticon
+          Search icons created by Smashicons
         </Attribute>
         <Attribute href="https://picsum.photos" title="Lorem Picsum">
           Background images used by Lorem Picsum
