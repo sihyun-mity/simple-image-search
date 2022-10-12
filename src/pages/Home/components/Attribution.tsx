@@ -81,7 +81,6 @@ const Attributes = styled.footer<{ mobileDevice: boolean }>`
   ${(props) =>
     props.mobileDevice
       ? css`
-          margin-top: 4px;
           text-align: center;
         `
       : css`
