@@ -68,6 +68,7 @@ const Box = styled.article<BoxPropsType>`
   position: relative;
   margin: unset;
   padding: 0 20px;
+  overflow-y: hidden;
 
   ${(props) =>
     props.image &&
