@@ -9,24 +9,23 @@ interface BoxPropsType {
   height: number;
   darkModeState: boolean;
   image: string;
-  $loading: boolean;
+  $transition: boolean;
 }
 
 const Home = (): JSX.Element => {
   const darkModeState = useRecoilValue(isDarkMode);
   const [image, setImage] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [transition, setTransition] = useState<boolean>(false);
 
   const getBackgroundImage = async (): Promise<void> => {
     try {
-      setLoading(true);
       const { innerWidth, innerHeight } = window;
       const picsum = await fetch(`https://picsum.photos/${innerWidth}/${innerHeight}?blur`);
       setImage(picsum.url);
+      setTransition(true);
+      setTimeout(() => setTransition(false), 300);
     } catch (e) {
       console.log(e);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -43,7 +42,7 @@ const Home = (): JSX.Element => {
       height={window.innerHeight}
       darkModeState={darkModeState}
       image={image}
-      $loading={loading}
+      $transition={transition}
     >
       <StartUp darkModeState={darkModeState}>Search anything to get started!</StartUp>
     </Box>
@@ -84,9 +83,9 @@ const Box = styled.article<BoxPropsType>`
     content: '';
 
     ${(props) =>
-      !props.$loading &&
+      props.$transition &&
       css`
-        animation: ${() => fadeIn(props.darkModeState)} 300ms;
+        animation: ${fadeIn(props.darkModeState)} 300ms;
       `}
 
     ${(props) =>
