@@ -42,8 +42,8 @@ const App = (): JSX.Element => {
     window.addEventListener('resize', optimizeEvent(detectResponsiveType));
 
     return () => {
-      window.removeEventListener('resize', calculateViewHeight);
-      window.removeEventListener('resize', detectResponsiveType);
+      window.removeEventListener('resize', optimizeEvent(calculateViewHeight));
+      window.removeEventListener('resize', optimizeEvent(detectResponsiveType));
     };
   });
 
