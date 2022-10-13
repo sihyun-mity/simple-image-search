@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
-import { useMountEffect } from '../../hooks';
 import { isDarkMode } from '../../store';
 import { Attribution } from './components';
 
@@ -9,29 +9,29 @@ interface BoxPropsType {
   width: number;
   height: number;
   darkModeState: boolean;
-  image: string;
+  image: string | undefined;
   $transition: boolean;
 }
 
 const Home = (): JSX.Element => {
   const darkModeState = useRecoilValue(isDarkMode);
-  const [image, setImage] = useState<string>('');
   const [transition, setTransition] = useState<boolean>(false);
 
-  const getBackgroundImage = async (): Promise<void> => {
-    try {
-      const { innerWidth, innerHeight } = window;
-      const size: number = innerWidth > innerHeight ? innerWidth : innerHeight;
-      const picsum = await fetch(`https://picsum.photos/${size}?blur`);
-      setImage(picsum.url);
-      setTransition(true);
-      setTimeout(() => setTransition(false), 300);
-    } catch (e) {
-      console.log(e);
-    }
+  const getBackgroundImage = async () => {
+    const { innerWidth, innerHeight } = window;
+    const size: number = innerWidth > innerHeight ? innerWidth : innerHeight;
+    const { url } = await fetch(`https://picsum.photos/${size}?blur`);
+    return url;
   };
 
-  useMountEffect(() => getBackgroundImage());
+  const loadBackgroundImage = () => {
+    setTransition(true);
+    setTimeout(() => setTransition(false), 300);
+  };
+
+  const { data: image } = useQuery(`background`, getBackgroundImage, { suspense: true });
+
+  useEffect(() => loadBackgroundImage(), [image]);
 
   return (
     <Box

@@ -1,9 +1,11 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { displayMode, viewHeight } from '../../store';
 import DisplayModePropsType from '../../types/DisplayModePropsType';
 import { Header } from '../organisms';
+import LoadingScreen from './LoadingScreen';
 import MetaTag from './MetaTag';
 
 const Container = (): JSX.Element => {
@@ -16,7 +18,9 @@ const Container = (): JSX.Element => {
       <Layout displayTheme={displayTheme}>
         <Header />
         <Content vh={vh}>
-          <Outlet />
+          <Suspense fallback={<LoadingScreen />}>
+            <Outlet />
+          </Suspense>
         </Content>
       </Layout>
     </>
