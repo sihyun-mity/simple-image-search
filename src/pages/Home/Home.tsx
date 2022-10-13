@@ -29,7 +29,7 @@ const Home = (): JSX.Element => {
     setTimeout(() => setTransition(false), 300);
   };
 
-  const { data: image } = useQuery(`background`, getBackgroundImage, { suspense: true });
+  const { data: image } = useQuery(`background`, getBackgroundImage, { staleTime: Infinity, suspense: true });
 
   useEffect(() => loadBackgroundImage(), [image]);
 
