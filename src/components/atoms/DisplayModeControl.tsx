@@ -31,6 +31,7 @@ export default DisplayModeControl;
 
 const Box = styled.label<StyledProps>`
   display: flex;
+  justify-content: center;
   align-items: center;
   position: relative;
   box-sizing: border-box;
