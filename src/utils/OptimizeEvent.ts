@@ -1,4 +1,4 @@
-export default function OptimizeEvent(callback: () => void): () => void {
+export default function optimizeEvent(callback: () => void): () => void {
   let ticking: boolean = false;
 
   return () => {
