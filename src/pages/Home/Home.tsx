@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
@@ -16,6 +17,7 @@ interface BoxPropsType {
 }
 
 const Home = (): JSX.Element => {
+  const { t } = useTranslation();
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const [transition, setTransition] = useState<boolean>(false);
@@ -45,7 +47,7 @@ const Home = (): JSX.Element => {
       $transition={transition}
     >
       <Input />
-      <StartUp displayTheme={displayTheme}>Search anything to get started!</StartUp>
+      <StartUp displayTheme={displayTheme}>{t('start_guide')}</StartUp>
       <Attribution />
     </Box>
   );

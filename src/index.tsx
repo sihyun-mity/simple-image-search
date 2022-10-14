@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import App from './App';
 import { GlobalStyle, theme } from './assets/styled-components';
 import reportWebVitals from './reportWebVitals';
+import './i18n';
 
 const queryClient = new QueryClient();
 
