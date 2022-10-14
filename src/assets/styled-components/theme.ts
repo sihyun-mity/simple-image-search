@@ -13,7 +13,7 @@ const light = {
     `,
     heading: css`
       color: #000;
-      -webkit-text-stroke: 0.6px #fff;
+      -webkit-text-stroke: 0.4px #fff;
     `,
     input: css`
       background-color: #fff;
@@ -33,7 +33,7 @@ const dark = {
     `,
     heading: css`
       color: #fff;
-      -webkit-text-stroke: 0.6px #000;
+      -webkit-text-stroke: 0.4px #000;
     `,
     input: css`
       background-color: #787878;
