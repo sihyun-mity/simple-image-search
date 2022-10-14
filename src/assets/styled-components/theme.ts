@@ -11,6 +11,10 @@ const light = {
       background-color: #fff;
       border-bottom: 2px solid #232323;
     `,
+    heading: css`
+      color: #000;
+      -webkit-text-stroke: 0.6px #fff;
+    `,
     input: css`
       background-color: #fff;
     `,
@@ -26,6 +30,10 @@ const dark = {
     header: css`
       background-color: #454545;
       border-bottom: 2px solid #898989;
+    `,
+    heading: css`
+      color: #fff;
+      -webkit-text-stroke: 0.6px #000;
     `,
     input: css`
       background-color: #898989;

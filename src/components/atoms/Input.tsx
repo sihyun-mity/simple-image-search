@@ -21,4 +21,6 @@ const Box = styled.label<StyledPropsType>`
   height: ${(props) => props.height};
 
   ${(props) => props.theme[props.displayTheme].colors.input}
+
+  background-color: ${(props) => props.color};
 `;

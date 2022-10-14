@@ -3,7 +3,8 @@ import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
 import { Input } from '../../components';
-import { isDarkMode } from '../../store';
+import { displayMode, isDarkMode } from '../../store';
+import DisplayModeType from '../../types/DisplayModeType';
 import { Attribution } from './components';
 
 interface BoxPropsType {
@@ -15,6 +16,7 @@ interface BoxPropsType {
 }
 
 const Home = (): JSX.Element => {
+  const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const [transition, setTransition] = useState<boolean>(false);
 
@@ -43,7 +45,7 @@ const Home = (): JSX.Element => {
       $transition={transition}
     >
       <Input />
-      <StartUp darkModeState={darkModeState}>Search anything to get started!</StartUp>
+      <StartUp displayTheme={displayTheme}>Search anything to get started!</StartUp>
       <Attribution />
     </Box>
   );
@@ -104,10 +106,11 @@ const Box = styled.article<BoxPropsType>`
   }
 `;
 
-const StartUp = styled.h1<{ darkModeState: boolean }>`
+const StartUp = styled.h1<{ displayTheme: DisplayModeType }>`
   position: relative;
   margin-bottom: 0;
   font-size: 1.8rem;
   text-align: center;
-  -webkit-text-stroke: 0.6px ${(props) => (props.darkModeState ? `#000` : `#fff`)};
+
+  ${(props) => props.theme[props.displayTheme].colors.heading};
 `;
