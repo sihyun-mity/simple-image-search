@@ -36,7 +36,8 @@ const dark = {
       -webkit-text-stroke: 0.6px #000;
     `,
     input: css`
-      background-color: #898989;
+      background-color: #787878;
+      color: #fff;
     `,
   },
 };

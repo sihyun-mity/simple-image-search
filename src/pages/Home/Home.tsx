@@ -46,7 +46,7 @@ const Home = (): JSX.Element => {
       image={image}
       $transition={transition}
     >
-      <Input />
+      <Input width="90%" />
       <StartUp displayTheme={displayTheme}>{t('start_guide')}</StartUp>
       <Attribution />
     </Box>
