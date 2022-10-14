@@ -9,7 +9,7 @@ interface StyledPropsType extends InputPropsType {
 }
 
 const Input = (props: InputPropsType) => {
-  const { width = '100%', height = '48px', color } = props;
+  const { width = '100%', height = '44px', color } = props;
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const [focus, setFocus] = useState<boolean>(false);
