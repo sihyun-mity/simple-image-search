@@ -4,14 +4,19 @@ import { useRecoilValue } from 'recoil';
 import { isDarkMode } from '../../store';
 import { useTranslation } from 'react-i18next';
 
-const LoadingScreen = () => {
+interface LoadingScreenPropsType {
+  description?: string;
+}
+
+const LoadingScreen = (props?: LoadingScreenPropsType) => {
+  const { description } = { ...props };
   const { t } = useTranslation();
   const darkModeState = useRecoilValue(isDarkMode);
 
   return (
     <Box>
       <Loading type="bubbles" color={darkModeState ? `#fff` : `#000`} />
-      <Text color={darkModeState ? `#fff` : `#000`}>{t('load_startUp')}</Text>
+      {description && <Text color={darkModeState ? `#fff` : `#000`}>{t(description)}</Text>}
     </Box>
   );
 };

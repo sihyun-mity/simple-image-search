@@ -18,7 +18,7 @@ const Container = (): JSX.Element => {
       <Layout displayTheme={displayTheme}>
         <Header />
         <Content vh={vh}>
-          <Suspense fallback={<LoadingScreen />}>
+          <Suspense fallback={<LoadingScreen description="load_startUp" />}>
             <Outlet />
           </Suspense>
         </Content>
