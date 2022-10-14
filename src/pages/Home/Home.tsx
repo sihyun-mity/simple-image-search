@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
 import { Input } from '../../components';
-import { displayMode, isDarkMode } from '../../store';
+import { displayMode, isDarkMode, isMobile } from '../../store';
 import DisplayModeType from '../../types/DisplayModeType';
 import { Attribution } from './components';
 
@@ -20,6 +20,7 @@ const Home = (): JSX.Element => {
   const { t } = useTranslation();
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
+  const mobileDevice = useRecoilValue(isMobile);
   const [transition, setTransition] = useState<boolean>(false);
 
   const getBackgroundImage = async (): Promise<string> => {
@@ -46,7 +47,7 @@ const Home = (): JSX.Element => {
       image={image}
       $transition={transition}
     >
-      <Input width="90%" />
+      <Input id="home_searchBar" width={mobileDevice ? `90%` : `40%`} />
       <StartUp displayTheme={displayTheme}>{t('start_guide')}</StartUp>
       <Attribution />
     </Box>

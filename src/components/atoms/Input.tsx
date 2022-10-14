@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import { displayMode, isDarkMode } from '../../store';
@@ -25,7 +25,11 @@ const Input = (props: InputPropsType) => {
       focus={focus}
     >
       <InputBox {...props} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} />
-      <SearchIcon src={search} darkModeState={darkModeState} />
+      <SearchIcon
+        src={search}
+        darkModeState={darkModeState}
+        onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
+      />
     </Box>
   );
 };
