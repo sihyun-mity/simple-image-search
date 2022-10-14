@@ -11,6 +11,9 @@ const light = {
       background-color: #fff;
       border-bottom: 2px solid #232323;
     `,
+    input: css`
+      background-color: #fff;
+    `,
   },
 };
 
@@ -23,6 +26,9 @@ const dark = {
     header: css`
       background-color: #454545;
       border-bottom: 2px solid #898989;
+    `,
+    input: css`
+      background-color: #898989;
     `,
   },
 };

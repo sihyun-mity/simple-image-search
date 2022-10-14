@@ -29,7 +29,7 @@ const Container = (): JSX.Element => {
 
 export default Container;
 
-const Layout = styled.div<DisplayModePropsType>`
+const Layout = styled.main<DisplayModePropsType>`
   min-width: 100vw;
   display: flex;
   flex-direction: column;
@@ -41,10 +41,6 @@ const Content = styled.section<{ vh: number }>`
   height: calc(${(props) => props.vh * 100}px - 56px);
   display: flex;
   flex-direction: column;
-
-  * {
-    transition: unset;
-  }
 
   & > * {
     margin: 0 20px;

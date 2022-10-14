@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
   ${normalize}
 
   * {
-    transition: background-color 300ms, color 300ms, border 300ms, fill 300ms;
+    transition: background-color 300ms, color 300ms, border 300ms, fill 300ms, -webkit-text-stroke 300ms;
   }
   
   body {

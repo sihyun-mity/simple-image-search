@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
+import { Input } from '../../components';
 import { isDarkMode } from '../../store';
 import { Attribution } from './components';
 
@@ -41,6 +42,7 @@ const Home = (): JSX.Element => {
       image={image}
       $transition={transition}
     >
+      <Input />
       <StartUp darkModeState={darkModeState}>Search anything to get started!</StartUp>
       <Attribution />
     </Box>
@@ -85,7 +87,7 @@ const Box = styled.article<BoxPropsType>`
     ${(props) =>
       props.$transition &&
       css`
-        animation: ${fadeIn(props.darkModeState)} 300ms;
+        animation: ${fadeIn(props.darkModeState)} 200ms;
       `}
 
     ${(props) =>
@@ -94,7 +96,7 @@ const Box = styled.article<BoxPropsType>`
         background-color: rgba(18, 18, 18, 0.4);
       `}
 
-    transition: background-color 300ms;
+    transition: background-color 200ms;
   }
 
   & > * {
@@ -104,8 +106,8 @@ const Box = styled.article<BoxPropsType>`
 
 const StartUp = styled.h1<{ darkModeState: boolean }>`
   position: relative;
+  margin-bottom: 0;
   font-size: 1.8rem;
   text-align: center;
   -webkit-text-stroke: 0.6px ${(props) => (props.darkModeState ? `#000` : `#fff`)};
-  transition: -webkit-text-stroke 300ms;
 `;

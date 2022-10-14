@@ -9,7 +9,7 @@ const LoadingScreen = () => {
   return (
     <Box>
       <Loading type="bubbles" color={darkModeState ? `#fff` : `#000`} />
-      <Text>
+      <Text color={darkModeState ? `#fff` : `#000`}>
         The page is being prepared,
         <br />
         please wait for a moment.
@@ -26,9 +26,14 @@ const Box = styled.article`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  & > * {
+    transition: none;
+  }
 `;
 
-const Text = styled.p`
+const Text = styled.p<{ color: string }>`
   margin-bottom: 0;
   text-align: center;
+  color: ${(props) => props.color};
 `;
