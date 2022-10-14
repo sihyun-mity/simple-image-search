@@ -22,7 +22,7 @@ const Home = (): JSX.Element => {
   const darkModeState = useRecoilValue(isDarkMode);
   const [transition, setTransition] = useState<boolean>(false);
 
-  const getBackgroundImage = async () => {
+  const getBackgroundImage = async (): Promise<string> => {
     const { innerWidth, innerHeight } = window;
     const size: number = innerWidth > innerHeight ? innerWidth : innerHeight;
     const { url } = await fetch(`https://picsum.photos/${size}?blur`);

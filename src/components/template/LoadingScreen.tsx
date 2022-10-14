@@ -2,18 +2,16 @@ import styled from 'styled-components';
 import Loading from 'react-loading';
 import { useRecoilValue } from 'recoil';
 import { isDarkMode } from '../../store';
+import { useTranslation } from 'react-i18next';
 
 const LoadingScreen = () => {
+  const { t } = useTranslation();
   const darkModeState = useRecoilValue(isDarkMode);
 
   return (
     <Box>
       <Loading type="bubbles" color={darkModeState ? `#fff` : `#000`} />
-      <Text color={darkModeState ? `#fff` : `#000`}>
-        The page is being prepared,
-        <br />
-        please wait for a moment.
-      </Text>
+      <Text color={darkModeState ? `#fff` : `#000`}>{t('load_startUp')}</Text>
     </Box>
   );
 };
