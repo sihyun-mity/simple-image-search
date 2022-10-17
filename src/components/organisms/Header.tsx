@@ -13,6 +13,7 @@ const Header = (): JSX.Element => {
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const mobileDevice = useRecoilValue(isMobile);
+  // eslint-disable-next-line
   const [searchBar, setSearchBar] = useState<boolean>(false);
 
   const returnHome = (): void => window.location.assign('/simple-image-search');
