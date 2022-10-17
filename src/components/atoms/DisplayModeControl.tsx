@@ -21,6 +21,7 @@ const DisplayModeControl = (): JSX.Element => {
   const manuallyHandleDisplayMode = (): void => {
     const reverseMode = displayTheme === 'light' ? 'dark' : 'light';
     window.localStorage.setItem('theme', reverseMode);
+    window.localStorage.setItem('useSystemTheme', 'false');
     setDisplayTheme(reverseMode);
     setUseSystemTheme(false);
   };
