@@ -13,7 +13,7 @@ const light = {
     `,
     options: css`
       background-color: #e9e9e9;
-      box-shadow: 0px 2px 8px 2px rgba(122, 122, 122, 0.4);
+      box-shadow: 0px 2px 8px 2px rgba(122, 122, 122, 0.2);
 
       * {
         color: #000;
@@ -42,7 +42,7 @@ const dark = {
     `,
     options: css`
       background-color: #575757;
-      box-shadow: 0px 2px 8px 2px rgba(222, 222, 222, 0.4);
+      box-shadow: 0px 2px 8px 2px rgba(222, 222, 222, 0.2);
 
       * {
         color: #fff;
