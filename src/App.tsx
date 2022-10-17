@@ -15,9 +15,11 @@ const App = (): JSX.Element => {
   const initializeDisplayTheme = (): void => {
     const isBrowserDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     let initTheme: DisplayModeType = isBrowserDarkMode ? 'dark' : 'light';
-    const localSettingTheme = window.localStorage.getItem('theme') as DisplayModeType;
 
-    localSettingTheme && (initTheme = localSettingTheme);
+    if (window.localStorage.getItem('useSystemTheme') !== 'true') {
+      const localSettingTheme = window.localStorage.getItem('theme') as DisplayModeType;
+      localSettingTheme && (initTheme = localSettingTheme);
+    }
 
     setDisplayTheme(initTheme);
   };

@@ -69,6 +69,7 @@ const SearchIcon = styled.img<DisplayModePropsType>`
   max-height: 20px;
   padding: 4px;
   cursor: pointer;
+  -webkit-user-drag: none;
 
   ${(props) =>
     props.darkModeState &&
