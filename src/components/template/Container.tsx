@@ -41,6 +41,7 @@ const Content = styled.section<{ vh: number }>`
   height: calc(${(props) => props.vh * 100}px - 56px);
   display: flex;
   flex-direction: column;
+  margin-top: 56px;
 
   & > * {
     margin: 0 20px;

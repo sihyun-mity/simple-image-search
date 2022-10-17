@@ -47,7 +47,7 @@ const Home = (): JSX.Element => {
       image={image}
       $transition={transition}
     >
-      <Input id="home_searchBar" width={mobileDevice ? `90%` : `40%`} />
+      <Input width={mobileDevice ? `90%` : `40%`} />
       <StartUp displayTheme={displayTheme}>{t('start_guide')}</StartUp>
       <Attribution />
     </Box>

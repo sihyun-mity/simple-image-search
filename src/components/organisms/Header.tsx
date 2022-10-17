@@ -31,10 +31,14 @@ const Header = (): JSX.Element => {
 export default Header;
 
 const Box = styled.header<DisplayModePropsType>`
+  width: 100%;
   height: 56px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 10;
   padding: 12px 20px;
   box-sizing: border-box;
 

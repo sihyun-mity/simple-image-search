@@ -11,12 +11,21 @@ const light = {
       background-color: #fff;
       border-bottom: 2px solid #232323;
     `,
+    options: css`
+      background-color: #e9e9e9;
+      box-shadow: 0px 2px 8px 2px rgba(122, 122, 122, 0.4);
+
+      * {
+        color: #000;
+      }
+    `,
     heading: css`
       color: #000;
       -webkit-text-stroke: 0.4px #fff;
     `,
     input: css`
       background-color: #fff;
+      color: #000;
     `,
   },
 };
@@ -30,6 +39,14 @@ const dark = {
     header: css`
       background-color: #454545;
       border-bottom: 2px solid #898989;
+    `,
+    options: css`
+      background-color: #575757;
+      box-shadow: 0px 2px 8px 2px rgba(222, 222, 222, 0.4);
+
+      * {
+        color: #fff;
+      }
     `,
     heading: css`
       color: #fff;
