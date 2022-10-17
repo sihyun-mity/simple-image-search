@@ -45,7 +45,7 @@ const DisplayModeControl = (): JSX.Element => {
     return () => darkModePreference.removeEventListener('change', autoHandleDisplayMode);
   }, [useSystemTheme, autoHandleDisplayMode, darkModePreference]);
 
-  useMountEffect(() => window.localStorage.getItem('useSystemTheme') === 'false' && setUseSystemTheme(false));
+  useMountEffect(() => window.localStorage.getItem('useSystemTheme') !== 'true' && setUseSystemTheme(false));
 
   return (
     <Box onMouseOver={() => setShowOptions(true)} onMouseLeave={() => setShowOptions(false)}>
