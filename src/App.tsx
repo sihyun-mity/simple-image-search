@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Container } from './components';
 import { useMountEffect } from './hooks';
-import { Home } from './pages';
+import { Home, Search } from './pages';
 import { displayMode, responsiveType, viewHeight } from './store';
 import DisplayModeType from './types/DisplayModeType';
 import { optimizeEvent } from './utils';
@@ -54,6 +54,7 @@ const App = (): JSX.Element => {
       <Routes>
         <Route path="simple-image-search/*" element={<Container />}>
           <Route path="" element={<Home />} />
+          <Route path="search" element={<Search />} />
         </Route>
       </Routes>
     </BrowserRouter>

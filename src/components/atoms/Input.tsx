@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import { displayMode, isDarkMode } from '../../store';
@@ -10,10 +10,11 @@ interface StyledPropsType extends InputPropsType {
 }
 
 const Input = (props: InputPropsType) => {
-  const { width = '100%', height = '44px', color } = props;
+  const { width = '100%', height = '44px', color, value, func } = props;
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const [focus, setFocus] = useState<boolean>(false);
+  const inputValue = useRef<string>();
 
   return (
     <Box
@@ -24,7 +25,14 @@ const Input = (props: InputPropsType) => {
       darkModeState={darkModeState}
       focus={focus}
     >
-      <InputBox {...props} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} />
+      <InputBox
+        {...props}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+        onKeyDown={(e) => e.key === 'Enter' && inputValue.current && func && func(inputValue.current)}
+        onChange={(e) => (inputValue.current = e.target.value)}
+        defaultValue={value}
+      />
       <SearchIcon
         src={search}
         darkModeState={darkModeState}
