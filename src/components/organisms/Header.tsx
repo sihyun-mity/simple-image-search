@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import { displayMode, isDarkMode, isMobile } from '../../store';
@@ -5,24 +6,49 @@ import { DisplayModeControl } from '../atoms';
 import { ReactComponent as Logo } from '../../assets/images/SimpleImageSearch_Logo.svg';
 import search from '../../assets/images/search.png';
 import DisplayModePropsType from '../../types/DisplayModePropsType';
+import { useLocation } from 'react-router-dom';
 
 const Header = (): JSX.Element => {
+  const { pathname } = useLocation();
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const mobileDevice = useRecoilValue(isMobile);
+  const [searchBar, setSearchBar] = useState<boolean>(false);
 
   const returnHome = (): void => window.location.assign('/simple-image-search');
+
+  const searchAction = (): void => {
+    const nowLocation = pathname.split('/simple-image-search')[1];
+
+    if (mobileDevice) {
+      switch (nowLocation) {
+        case '':
+          return document.getElementById('searchBar_home')?.focus();
+
+        default:
+          return setSearchBar(true);
+      }
+    } else {
+      switch (nowLocation) {
+        case '':
+          return document.getElementById('searchBar_home')?.focus();
+
+        default:
+          return setSearchBar(true);
+      }
+    }
+  };
 
   return mobileDevice ? (
     <Box displayTheme={displayTheme} darkModeState={darkModeState}>
       <DisplayModeControl />
       <Logo onClick={() => returnHome()} />
-      <SearchIcon src={search} darkModeState={darkModeState} />
+      <SearchIcon src={search} darkModeState={darkModeState} onClick={() => searchAction()} />
     </Box>
   ) : (
     <DesktopBox displayTheme={displayTheme} darkModeState={darkModeState}>
       <Logo onClick={() => returnHome()} />
-      <DesktopSearchIcon src={search} darkModeState={darkModeState} />
+      <DesktopSearchIcon src={search} darkModeState={darkModeState} onClick={() => searchAction()} />
       <DisplayModeControl />
     </DesktopBox>
   );

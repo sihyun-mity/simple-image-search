@@ -5,7 +5,7 @@ import { createSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
 import { Input } from '../../components';
-import { useCustomNavigate } from '../../hooks';
+import { useCustomNavigate, useMountEffect } from '../../hooks';
 import { displayMode, isDarkMode, isMobile } from '../../store';
 import DisplayModeType from '../../types/DisplayModeType';
 import { Attribution } from './components';
@@ -31,7 +31,7 @@ const Home = (): JSX.Element => {
     return url;
   };
 
-  const loadBackgroundImage = () => {
+  const loadBackgroundImage = (): void => {
     setTransition(true);
     setTimeout(() => setTransition(false), 300);
   };
@@ -44,9 +44,11 @@ const Home = (): JSX.Element => {
 
   useEffect(() => loadBackgroundImage(), [image]);
 
+  useMountEffect(() => document.getElementById('searchBar_home')?.focus());
+
   return (
     <Box darkModeState={darkModeState} image={image} $transition={transition}>
-      <Input width={mobileDevice ? `90%` : `40%`} func={(value) => searchImage(value)} />
+      <Input id="searchBar_home" width={mobileDevice ? `90%` : `40%`} func={(value) => searchImage(value)} />
       <StartUp displayTheme={displayTheme}>{t('start_guide')}</StartUp>
       <Attribution />
     </Box>
