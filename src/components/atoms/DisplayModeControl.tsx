@@ -7,6 +7,7 @@ import ToggleSwitch from './ToggleSwitch';
 import DisplayModeType from '../../types/DisplayModeType';
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { useMountEffect } from '../../hooks';
+import { useTranslation } from 'react-i18next';
 
 const DisplayModeControl = (): JSX.Element => {
   const [displayTheme, setDisplayTheme] = useRecoilState(displayMode);
@@ -15,6 +16,7 @@ const DisplayModeControl = (): JSX.Element => {
   const [useSystemTheme, setUseSystemTheme] = useState<boolean>(true);
   const darkModePreference = window.matchMedia('(prefers-color-scheme: dark)');
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const manuallyHandleDisplayMode = (): void => {
     const reverseMode = displayTheme === 'light' ? 'dark' : 'light';
@@ -58,7 +60,7 @@ const DisplayModeControl = (): JSX.Element => {
           <EmptySpace />
           <Options displayTheme={displayTheme}>
             <Item>
-              <ItemText>시스템 테마 사용</ItemText>
+              <ItemText>{t('darkmode_option')}</ItemText>
               <ToggleSwitch size={'small'} value={useSystemTheme} func={(value: boolean) => syncSystemTheme(value)} />
             </Item>
           </Options>
