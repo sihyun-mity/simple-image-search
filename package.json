@@ -57,6 +57,7 @@
     "@types/react-query": "^1.2.9",
     "@types/react-router-dom": "^5.3.3",
     "@types/recoil": "^0.0.9",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "query-string": "^7.1.1"
   }
 }
