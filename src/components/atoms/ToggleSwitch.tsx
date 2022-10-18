@@ -94,6 +94,7 @@ const Box = styled.label<StyledProps>`
 
   &:active:hover {
     & > div:last-of-type {
+      will-change: width;
       width: calc(${(props) => preset[props.size].circle} + 6px);
 
       ${(props) =>
@@ -149,6 +150,7 @@ const Rectangle = styled.div<StyledProps>`
       : css`
           left: 2px;
         `}
+
   transition: left 200ms, width 200ms;
   border-radius: 16px;
   background-color: white;

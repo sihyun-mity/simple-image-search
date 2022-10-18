@@ -44,7 +44,7 @@ const Home = (): JSX.Element => {
 
   useEffect(() => loadBackgroundImage(), [image]);
 
-  useMountEffect(() => document.getElementById('searchBar_home')?.focus());
+  useMountEffect(() => !mobileDevice && document.getElementById('searchBar_home')?.focus());
 
   return (
     <Box darkModeState={darkModeState} image={image} $transition={transition}>
