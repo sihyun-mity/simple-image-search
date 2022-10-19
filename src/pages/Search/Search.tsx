@@ -1,4 +1,3 @@
-/* eslint-disable */
 import axios from 'axios';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
