@@ -10,7 +10,7 @@ interface StyledPropsType extends InputPropsType {
 }
 
 const Input = (props: InputPropsType) => {
-  const { width = '100%', height = '44px', color, value, func } = props;
+  const { width = '100%', height = '44px', color, value, type, func } = props;
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const [focus, setFocus] = useState<boolean>(false);
@@ -24,6 +24,7 @@ const Input = (props: InputPropsType) => {
       displayTheme={displayTheme}
       darkModeState={darkModeState}
       focus={focus}
+      type={type}
     >
       <InputBox
         {...props}
@@ -33,12 +34,14 @@ const Input = (props: InputPropsType) => {
         onChange={(e) => (inputValue.current = e.target.value)}
         defaultValue={value}
       />
-      <SearchIcon
-        src={search}
-        darkModeState={darkModeState}
-        onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
-        onClick={() => func && inputValue.current && func(inputValue.current)}
-      />
+      {type !== 'header' && (
+        <SearchIcon
+          src={search}
+          darkModeState={darkModeState}
+          onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
+          onClick={() => func && inputValue.current && func(inputValue.current)}
+        />
+      )}
     </Box>
   );
 };
@@ -61,22 +64,33 @@ const Box = styled.label<StyledPropsType>`
 
   background-color: ${(props) => props.color};
 
-  &::before {
-    content: '';
-    height: 100%;
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    border-radius: inherit;
-    transition: box-shadow 200ms;
+  ${(props) =>
+    props.type === 'home' &&
+    css`
+      &::before {
+        content: '';
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        border-radius: inherit;
+        transition: box-shadow 200ms;
 
-    ${(props) =>
-      props.focus &&
-      css`
-        box-shadow: 0px 0px 0px 4px ${props.darkModeState ? `rgba(255, 255, 255, 0.6)` : `rgba(55, 55, 55, 0.6)`};
-      `}
-  }
+        ${props.focus &&
+        css`
+          box-shadow: 0px 0px 0px 4px ${props.darkModeState ? `rgba(255, 255, 255, 0.6)` : `rgba(55, 55, 55, 0.6)`};
+        `}
+      }
+    `}
+
+  ${(props) =>
+    props.type === 'header' &&
+    css`
+      padding: 4px 8px;
+      margin-right: 12px;
+      background-color: ${!props.darkModeState && `#c9c9c9`};
+    `}
 `;
 
 const InputBox = styled.input`

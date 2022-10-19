@@ -16,3 +16,8 @@ export const responsiveType = atom<ResponsiveType>({
   key: 'responsiveType',
   default: 'mobile',
 });
+
+export const headerSearchBar = atom<boolean>({
+  key: 'headerSearchBar',
+  default: false,
+});
