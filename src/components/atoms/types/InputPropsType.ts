@@ -5,5 +5,6 @@ export default interface InputPropsType extends HTMLAttributes<HTMLInputElement>
   height?: string;
   color?: string;
   value?: string;
+  type: 'home' | 'header';
   func?: (value: string) => void;
 }

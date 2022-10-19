@@ -20,6 +20,9 @@ const Attribution = () => {
         <Attribute href="https://www.flaticon.com/free-icons/photo" title="photo icons">
           Photo icons created by Freepik
         </Attribute>
+        <Attribute href="https://www.flaticon.com/free-icons/close" title="close icons">
+          Close icons created by Pixel perfect
+        </Attribute>
         <Attribute href="https://www.flaticon.com/free-icons/top" title="top icons">
           Top icons created by gariebaldy
         </Attribute>

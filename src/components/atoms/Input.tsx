@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { displayMode, isDarkMode } from '../../store';
+import { displayMode, isDarkMode, isMobile } from '../../store';
 import InputPropsType from './types/InputPropsType';
 import search from '../../assets/images/search.png';
 
@@ -10,11 +10,13 @@ interface StyledPropsType extends InputPropsType {
 }
 
 const Input = (props: InputPropsType) => {
-  const { width = '100%', height = '44px', color, value, func } = props;
+  const { width = '100%', height = '44px', color, type, func } = props;
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
+  const mobileDevice = useRecoilValue(isMobile);
   const [focus, setFocus] = useState<boolean>(false);
   const inputValue = useRef<string>();
+  console.log(mobileDevice);
 
   return (
     <Box
@@ -23,7 +25,9 @@ const Input = (props: InputPropsType) => {
       color={color}
       displayTheme={displayTheme}
       darkModeState={darkModeState}
+      mobileDevice={mobileDevice}
       focus={focus}
+      type={type}
     >
       <InputBox
         {...props}
@@ -31,14 +35,15 @@ const Input = (props: InputPropsType) => {
         onBlur={() => setFocus(false)}
         onKeyDown={(e) => e.key === 'Enter' && inputValue.current && func && func(inputValue.current)}
         onChange={(e) => (inputValue.current = e.target.value)}
-        defaultValue={value}
       />
-      <SearchIcon
-        src={search}
-        darkModeState={darkModeState}
-        onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
-        onClick={() => func && inputValue.current && func(inputValue.current)}
-      />
+      {type !== 'header' && (
+        <SearchIcon
+          src={search}
+          darkModeState={darkModeState}
+          onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
+          onClick={() => func && inputValue.current && func(inputValue.current)}
+        />
+      )}
     </Box>
   );
 };
@@ -61,22 +66,33 @@ const Box = styled.label<StyledPropsType>`
 
   background-color: ${(props) => props.color};
 
-  &::before {
-    content: '';
-    height: 100%;
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    border-radius: inherit;
-    transition: box-shadow 200ms;
+  ${(props) =>
+    props.type === 'home' &&
+    css`
+      &::before {
+        content: '';
+        height: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        border-radius: inherit;
+        transition: box-shadow 200ms;
 
-    ${(props) =>
-      props.focus &&
-      css`
-        box-shadow: 0px 0px 0px 4px ${props.darkModeState ? `rgba(255, 255, 255, 0.6)` : `rgba(55, 55, 55, 0.6)`};
-      `}
-  }
+        ${props.focus &&
+        css`
+          box-shadow: 0px 0px 0px 4px ${props.darkModeState ? `rgba(255, 255, 255, 0.6)` : `rgba(55, 55, 55, 0.6)`};
+        `}
+      }
+    `}
+
+  ${(props) =>
+    props.type === 'header' &&
+    css`
+      padding: 4px 8px;
+      margin: ${props.mobileDevice ? `0 12px` : `0 12px 0 0`};
+      background-color: ${!props.darkModeState && `#c9c9c9`};
+    `}
 `;
 
 const InputBox = styled.input`
