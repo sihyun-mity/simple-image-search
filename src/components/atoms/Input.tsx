@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { displayMode, isDarkMode } from '../../store';
+import { displayMode, isDarkMode, isMobile } from '../../store';
 import InputPropsType from './types/InputPropsType';
 import search from '../../assets/images/search.png';
 
@@ -10,11 +10,13 @@ interface StyledPropsType extends InputPropsType {
 }
 
 const Input = (props: InputPropsType) => {
-  const { width = '100%', height = '44px', color, value, type, func } = props;
+  const { width = '100%', height = '44px', color, type, func } = props;
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
+  const mobileDevice = useRecoilValue(isMobile);
   const [focus, setFocus] = useState<boolean>(false);
   const inputValue = useRef<string>();
+  console.log(mobileDevice);
 
   return (
     <Box
@@ -23,6 +25,7 @@ const Input = (props: InputPropsType) => {
       color={color}
       displayTheme={displayTheme}
       darkModeState={darkModeState}
+      mobileDevice={mobileDevice}
       focus={focus}
       type={type}
     >
@@ -32,7 +35,6 @@ const Input = (props: InputPropsType) => {
         onBlur={() => setFocus(false)}
         onKeyDown={(e) => e.key === 'Enter' && inputValue.current && func && func(inputValue.current)}
         onChange={(e) => (inputValue.current = e.target.value)}
-        defaultValue={value}
       />
       {type !== 'header' && (
         <SearchIcon
@@ -88,7 +90,7 @@ const Box = styled.label<StyledPropsType>`
     props.type === 'header' &&
     css`
       padding: 4px 8px;
-      margin-right: 12px;
+      margin: ${props.mobileDevice ? `0 12px` : `0 12px 0 0`};
       background-color: ${!props.darkModeState && `#c9c9c9`};
     `}
 `;

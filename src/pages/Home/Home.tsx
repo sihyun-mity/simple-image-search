@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
-import { createSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
-import { Input } from '../../components';
-import { useCustomNavigate, useMountEffect } from '../../hooks';
+import { SearchBar } from '../../components';
+import { useMountEffect } from '../../hooks';
 import { displayMode, isDarkMode, isMobile } from '../../store';
 import DisplayModeType from '../../types/DisplayModeType';
 import { Attribution } from './components';
@@ -18,7 +17,6 @@ interface BoxPropsType {
 
 const Home = (): JSX.Element => {
   const { t } = useTranslation();
-  const navigate = useCustomNavigate();
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const mobileDevice = useRecoilValue(isMobile);
@@ -38,17 +36,13 @@ const Home = (): JSX.Element => {
 
   const { data: image } = useQuery(`background`, getBackgroundImage, { staleTime: Infinity, suspense: true });
 
-  const searchImage = (keyword: string) => {
-    navigate(`/search?${createSearchParams({ keyword })}`);
-  };
-
   useEffect(() => loadBackgroundImage(), [image]);
 
   useMountEffect(() => !mobileDevice && document.getElementById('searchBar_home')?.focus());
 
   return (
     <Box darkModeState={darkModeState} image={image} $transition={transition}>
-      <Input id="searchBar_home" width={mobileDevice ? `90%` : `40%`} func={(value) => searchImage(value)} />
+      <SearchBar id="searchBar_home" width={mobileDevice ? `90%` : `40%`} type="home" />
       <StartUp displayTheme={displayTheme}>{t('start_guide')}</StartUp>
       <Attribution />
     </Box>

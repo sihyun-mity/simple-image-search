@@ -4,6 +4,7 @@ import { displayMode, headerSearchBar, isDarkMode, isMobile } from '../../store'
 import { DisplayModeControl } from '../atoms';
 import { ReactComponent as Logo } from '../../assets/images/SimpleImageSearch_Logo.svg';
 import search from '../../assets/images/search.png';
+import close from '../../assets/images/close.png';
 import DisplayModePropsType from '../../types/DisplayModePropsType';
 import { useLocation } from 'react-router-dom';
 import { SearchBar } from '../molecules';
@@ -26,7 +27,7 @@ const Header = (): JSX.Element => {
           return document.getElementById('searchBar_home')?.focus();
 
         default:
-          return setSearchBar(true);
+          return setSearchBar((prev) => !prev);
       }
     } else {
       switch (nowLocation) {
@@ -34,7 +35,7 @@ const Header = (): JSX.Element => {
           return document.getElementById('searchBar_home')?.focus();
 
         default:
-          return setSearchBar(true);
+          return setSearchBar((prev) => !prev);
       }
     }
   };
@@ -42,13 +43,17 @@ const Header = (): JSX.Element => {
   return mobileDevice ? (
     <Box displayTheme={displayTheme} darkModeState={darkModeState}>
       <DisplayModeControl />
-      <Logo onClick={() => returnHome()} />
-      <SearchIcon src={search} darkModeState={darkModeState} onClick={() => searchAction()} />
+      {searchBar ? <SearchBar type="header" width="100%" height="100%" /> : <Logo onClick={() => returnHome()} />}
+      <SearchIcon src={searchBar ? close : search} darkModeState={darkModeState} onClick={() => searchAction()} />
     </Box>
   ) : (
     <DesktopBox displayTheme={displayTheme} darkModeState={darkModeState}>
       {searchBar ? <SearchBar type="header" width="100%" height="100%" /> : <Logo onClick={() => returnHome()} />}
-      <DesktopSearchIcon src={search} darkModeState={darkModeState} onClick={() => searchAction()} />
+      <DesktopSearchIcon
+        src={searchBar ? close : search}
+        darkModeState={darkModeState}
+        onClick={() => searchAction()}
+      />
       <DisplayModeControl />
     </DesktopBox>
   );
