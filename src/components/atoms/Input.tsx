@@ -103,7 +103,6 @@ const InputBox = styled.input`
   border-radius: inherit;
   box-sizing: border-box;
   background-color: unset;
-  color: inherit;
 
   &:focus {
     outline: 0;
