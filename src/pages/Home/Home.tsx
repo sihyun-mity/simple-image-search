@@ -5,11 +5,12 @@ import { useRecoilValue } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
 import { SearchBar } from '../../components';
 import { useMountEffect } from '../../hooks';
-import { displayMode, isDarkMode, isMobile } from '../../store';
+import { displayMode, isDarkMode, isMobile, viewHeight } from '../../store';
 import DisplayModeType from '../../types/DisplayModeType';
 import { Attribution } from './components';
 
 interface BoxPropsType {
+  vh: number;
   darkModeState: boolean;
   image: string | undefined;
   $transition: boolean;
@@ -17,6 +18,7 @@ interface BoxPropsType {
 
 const Home = (): JSX.Element => {
   const { t } = useTranslation();
+  const vh = useRecoilValue(viewHeight);
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const mobileDevice = useRecoilValue(isMobile);
@@ -41,7 +43,7 @@ const Home = (): JSX.Element => {
   useMountEffect(() => !mobileDevice && document.getElementById('searchBar_home')?.focus());
 
   return (
-    <Box darkModeState={darkModeState} image={image} $transition={transition}>
+    <Box vh={vh} darkModeState={darkModeState} image={image} $transition={transition}>
       <SearchBar id="searchBar_home" width={mobileDevice ? `90%` : `40%`} type="home" />
       <StartUp displayTheme={displayTheme}>{t('start_guide')}</StartUp>
       <Attribution />
@@ -62,7 +64,7 @@ const fadeIn = (darkModeState: boolean) => keyframes`
 `;
 
 const Box = styled.article<BoxPropsType>`
-  height: 100%;
+  height: calc(${(props) => props.vh * 100}px - 56px);
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { displayMode, viewHeight } from '../../store';
+import { displayMode } from '../../store';
 import DisplayModePropsType from '../../types/DisplayModePropsType';
 import { Header } from '../organisms';
 import LoadingScreen from './LoadingScreen';
@@ -10,14 +10,13 @@ import MetaTag from './MetaTag';
 
 const Container = (): JSX.Element => {
   const displayTheme = useRecoilValue(displayMode);
-  const vh = useRecoilValue(viewHeight);
 
   return (
     <>
       <MetaTag />
       <Layout displayTheme={displayTheme}>
         <Header />
-        <Content vh={vh}>
+        <Content>
           <Suspense fallback={<LoadingScreen description="loading" />}>
             <Outlet />
           </Suspense>
@@ -37,8 +36,7 @@ const Layout = styled.main<DisplayModePropsType>`
   ${(props) => props.displayTheme && props.theme[props.displayTheme].colors.body};
 `;
 
-const Content = styled.section<{ vh: number }>`
-  height: calc(${(props) => props.vh * 100}px - 56px);
+const Content = styled.section`
   display: flex;
   flex-direction: column;
   margin-top: 56px;
