@@ -38,7 +38,7 @@ const App = (): JSX.Element => {
   };
 
   const detectOrientationType = (): void =>
-    setOrientationType(window.matchMedia(`(orientation: portrait)`) ? `portrait` : `landscape`);
+    setOrientationType(window.matchMedia(`(orientation: portrait)`).matches ? `portrait` : `landscape`);
 
   useMountEffect(() => {
     initializeDisplayTheme();
