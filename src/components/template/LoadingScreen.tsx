@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Loading from 'react-loading';
 import { useRecoilValue } from 'recoil';
-import { isDarkMode } from '../../store';
+import { isDarkMode, viewHeight } from '../../store';
 import { useTranslation } from 'react-i18next';
 
 interface LoadingScreenPropsType {
@@ -11,10 +11,11 @@ interface LoadingScreenPropsType {
 const LoadingScreen = (props?: LoadingScreenPropsType) => {
   const { description } = { ...props };
   const { t } = useTranslation();
+  const vh = useRecoilValue(viewHeight);
   const darkModeState = useRecoilValue(isDarkMode);
 
   return (
-    <Box>
+    <Box vh={vh}>
       <Loading type="bubbles" color={darkModeState ? `#fff` : `#000`} />
       {description && <Text color={darkModeState ? `#fff` : `#000`}>{t(description)}</Text>}
     </Box>
@@ -23,8 +24,8 @@ const LoadingScreen = (props?: LoadingScreenPropsType) => {
 
 export default LoadingScreen;
 
-const Box = styled.article`
-  height: 100%;
+const Box = styled.article<{ vh: number }>`
+  height: calc(${(props) => props.vh * 100}px - 56px);
   display: flex;
   flex-direction: column;
   justify-content: center;

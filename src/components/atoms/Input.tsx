@@ -16,7 +16,6 @@ const Input = (props: InputPropsType) => {
   const mobileDevice = useRecoilValue(isMobile);
   const [focus, setFocus] = useState<boolean>(false);
   const inputValue = useRef<string>();
-  console.log(mobileDevice);
 
   return (
     <Box
@@ -103,7 +102,6 @@ const InputBox = styled.input`
   border-radius: inherit;
   box-sizing: border-box;
   background-color: unset;
-  color: inherit;
 
   &:focus {
     outline: 0;

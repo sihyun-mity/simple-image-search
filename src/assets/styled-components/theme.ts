@@ -25,7 +25,10 @@ const light = {
     `,
     input: css`
       background-color: #fff;
-      color: #000;
+
+      & > input {
+        color: #000;
+      }
     `,
   },
 };
@@ -54,7 +57,10 @@ const dark = {
     `,
     input: css`
       background-color: #676767;
-      color: #fff;
+
+      & > input {
+        color: #fff;
+      }
     `,
   },
 };

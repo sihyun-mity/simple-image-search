@@ -24,6 +24,7 @@ const Header = (): JSX.Element => {
     if (mobileDevice) {
       switch (nowLocation) {
         case '':
+        case '/':
           return document.getElementById('searchBar_home')?.focus();
 
         default:
@@ -32,6 +33,7 @@ const Header = (): JSX.Element => {
     } else {
       switch (nowLocation) {
         case '':
+        case '/':
           return document.getElementById('searchBar_home')?.focus();
 
         default:
