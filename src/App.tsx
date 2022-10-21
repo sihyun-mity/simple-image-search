@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import { Container } from './components';
 import { useMountEffect } from './hooks';
 import { Home, Search } from './pages';
-import { displayMode, responsiveType, viewHeight } from './store';
+import { displayMode, orientationType, responsiveType, viewHeight } from './store';
 import DisplayModeType from './types/DisplayModeType';
 import { optimizeEvent } from './utils';
 
@@ -11,6 +11,7 @@ const App = (): JSX.Element => {
   const setDisplayTheme = useSetRecoilState(displayMode);
   const setVh = useSetRecoilState(viewHeight);
   const setResponsiveType = useSetRecoilState(responsiveType);
+  const setOrientationType = useSetRecoilState(orientationType);
 
   const initializeDisplayTheme = (): void => {
     const isBrowserDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -36,16 +37,22 @@ const App = (): JSX.Element => {
     } else setResponsiveType('pc');
   };
 
+  const detectOrientationType = (): void =>
+    setOrientationType(window.matchMedia(`(orientation: portrait)`) ? `portrait` : `landscape`);
+
   useMountEffect(() => {
     initializeDisplayTheme();
     calculateViewHeight();
     detectResponsiveType();
+    detectOrientationType();
     window.addEventListener('resize', optimizeEvent(calculateViewHeight));
     window.addEventListener('resize', optimizeEvent(detectResponsiveType));
+    window.addEventListener('resize', optimizeEvent(detectOrientationType));
 
     return () => {
       window.removeEventListener('resize', optimizeEvent(calculateViewHeight));
       window.removeEventListener('resize', optimizeEvent(detectResponsiveType));
+      window.removeEventListener('resize', optimizeEvent(detectOrientationType));
     };
   });
 

@@ -17,6 +17,11 @@ export const responsiveType = atom<ResponsiveType>({
   default: 'mobile',
 });
 
+export const orientationType = atom<'portrait' | 'landscape'>({
+  key: 'orientationType',
+  default: 'portrait',
+});
+
 export const headerSearchBar = atom<boolean>({
   key: 'headerSearchBar',
   default: false,
