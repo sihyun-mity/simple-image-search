@@ -15,7 +15,7 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - name: Setting .env
-        run: echo "REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }}" > .env
+        run: echo "REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }}" >> .env
 
       - uses: actions/checkout@v3
 
