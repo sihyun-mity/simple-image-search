@@ -4,8 +4,10 @@ import styled, { css } from 'styled-components';
 import { displayMode, isDarkMode, isMobile } from '../../store';
 import InputPropsType from './types/InputPropsType';
 import search from '../../assets/images/search.png';
+import DisplayModeType from '../../types/DisplayModeType';
 
 interface StyledPropsType extends InputPropsType {
+  displayTheme: DisplayModeType;
   [props: string]: any;
 }
 
