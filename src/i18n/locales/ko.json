@@ -2,6 +2,7 @@
   "translation": {
     "loading": "페이지 불러오는 중",
     "darkmode_option": "시스템 테마 사용",
-    "start_guide": "찾고 싶은 이미지를 검색해보세요!"
+    "start_guide": "찾고 싶은 이미지를 검색해보세요!",
+    "more": "찾는 이미지가 없나요?"
   }
 }

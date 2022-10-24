@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import DisplayModeType from '../types/DisplayModeType';
+import OrientationType from '../types/OrientationType';
 import ResponsiveType from '../types/ResponsiveType';
 
 export const displayMode = atom<DisplayModeType>({
@@ -17,7 +18,7 @@ export const responsiveType = atom<ResponsiveType>({
   default: 'mobile',
 });
 
-export const orientationType = atom<'portrait' | 'landscape'>({
+export const orientationType = atom<OrientationType>({
   key: 'orientationType',
   default: 'portrait',
 });

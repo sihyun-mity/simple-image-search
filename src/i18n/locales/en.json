@@ -2,6 +2,7 @@
   "translation": {
     "loading": "Fetching page",
     "darkmode_option": "Use system theme",
-    "start_guide": "Search anything to get started!"
+    "start_guide": "Search anything to get started!",
+    "more": "Can't find the image you're looking for?"
   }
 }

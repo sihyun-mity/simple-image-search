@@ -1,18 +1,30 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useMountEffect, usePathQuery } from '../../hooks';
-import { headerSearchBar, orientationType, responsiveType } from '../../store';
+import { displayMode, headerSearchBar, orientationType, responsiveType } from '../../store';
+import DisplayModeType from '../../types/DisplayModeType';
+import OrientationType from '../../types/OrientationType';
+import ResponsiveType from '../../types/ResponsiveType';
 import SearchResponseDataModel from './types/SearchResponseDataModel';
+
+interface ItemPropsType {
+  displayTheme: DisplayModeType;
+  deviceResponsive: ResponsiveType;
+  deviceOrientation: OrientationType;
+}
 
 const Search = (): JSX.Element => {
   const qs = usePathQuery();
   const setHeaderSearchBar = useSetRecoilState(headerSearchBar);
   const deviceResponsive = useRecoilValue(responsiveType);
   const deviceOrientation = useRecoilValue(orientationType);
+  const displayTheme = useRecoilValue(displayMode);
   const [itemsLine, setItemsLine] = useState<number[]>();
+  const { t } = useTranslation();
 
   const calculateItemsLine = useCallback((): void => {
     let count: number;
@@ -56,61 +68,117 @@ const Search = (): JSX.Element => {
   useMountEffect(() => setHeaderSearchBar(true));
 
   return (
-    <Box count={itemsLine?.length || 0}>
-      {itemsLine?.map((item, index) => (
-        <Items key={index}>
-          {(() => {
-            let startIdx: number = index;
+    <Box>
+      <ResultBox count={itemsLine?.length || 0}>
+        {itemsLine?.map((item, index) => (
+          <div key={index}>
+            {(() => {
+              let startIdx: number = index;
 
-            return images?.map((item, index) => {
-              const findIdx: number = startIdx;
-              startIdx += itemsLine.length;
+              return images?.map((item, index) => {
+                const findIdx: number = startIdx;
+                startIdx += itemsLine.length;
 
-              return (
-                images[findIdx] && (
-                  <Item key={index}>
-                    <Image src={images[findIdx].thumbnailUrl} />
-                    <Name>{images[findIdx].name}</Name>
-                  </Item>
-                )
-              );
-            });
-          })()}
-        </Items>
-      ))}
+                return (
+                  images[findIdx] && (
+                    <Item
+                      key={index}
+                      displayTheme={displayTheme}
+                      deviceResponsive={deviceResponsive}
+                      deviceOrientation={deviceOrientation}
+                    >
+                      <ImageBox>
+                        <Image src={images[findIdx].thumbnailUrl} />
+                      </ImageBox>
+                      <Name>{images[findIdx].name}</Name>
+                    </Item>
+                  )
+                );
+              });
+            })()}
+          </div>
+        ))}
+      </ResultBox>
+      <More displayTheme={displayTheme} onClick={() => window.open(data?.webSearchUrl)}>
+        {t('more')}
+      </More>
     </Box>
   );
 };
 
 export default Search;
 
-const Box = styled.article<{ count: number }>`
+const Box = styled.article`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+`;
+
+const ResultBox = styled.div<{ count: number }>`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 16px;
 
   & > div {
     width: calc(100% / ${(props) => props.count} - 10px);
   }
 `;
 
-const Items = styled.div``;
-
-const Item = styled.div`
+const Item = styled.div<ItemPropsType>`
   width: 100%;
   height: fit-content;
   display: inline-flex;
   flex-direction: column;
-  background-color: green;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+
+  ${(props) => props.theme[props.displayTheme].colors.item};
+
+  ${(props) =>
+    (props.deviceOrientation === 'landscape' || props.deviceResponsive !== 'mobile') &&
+    css`
+      height: 22vh;
+
+      & > div {
+        width: 100%;
+        height: 18vh;
+      }
+    `}
+`;
+
+const ImageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Image = styled.img`
-  /* max-width: 100%;
-  max-height: 100%; */
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 const Name = styled.label`
-  color: white;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  padding: 0 8px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  text-align: center;
+  word-break: break-all;
+  overflow: hidden;
+`;
+
+const More = styled.button<{ displayTheme: DisplayModeType }>`
+  margin: 8px 0 20px;
+  padding: 8px 16px;
+  background-color: unset;
+  border-radius: 99px;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+
+  ${(props) => props.theme[props.displayTheme].colors.more};
 `;

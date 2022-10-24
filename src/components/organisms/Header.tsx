@@ -9,6 +9,10 @@ import DisplayModePropsType from '../../types/DisplayModePropsType';
 import { useLocation } from 'react-router-dom';
 import { SearchBar } from '../molecules';
 
+interface SearchIconPropsType extends DisplayModePropsType {
+  activeSearch: boolean;
+}
+
 const Header = (): JSX.Element => {
   const { pathname } = useLocation();
   const displayTheme = useRecoilValue(displayMode);
@@ -46,13 +50,19 @@ const Header = (): JSX.Element => {
     <Box displayTheme={displayTheme} darkModeState={darkModeState}>
       <DisplayModeControl />
       {searchBar ? <SearchBar type="header" width="100%" height="100%" /> : <Logo onClick={() => returnHome()} />}
-      <SearchIcon src={searchBar ? close : search} darkModeState={darkModeState} onClick={() => searchAction()} />
+      <SearchIcon
+        src={searchBar ? close : search}
+        activeSearch={searchBar}
+        darkModeState={darkModeState}
+        onClick={() => searchAction()}
+      />
     </Box>
   ) : (
     <DesktopBox displayTheme={displayTheme} darkModeState={darkModeState}>
       {searchBar ? <SearchBar type="header" width="100%" height="100%" /> : <Logo onClick={() => returnHome()} />}
       <DesktopSearchIcon
         src={searchBar ? close : search}
+        activeSearch={searchBar}
         darkModeState={darkModeState}
         onClick={() => searchAction()}
       />
@@ -97,9 +107,17 @@ const DesktopBox = styled(Box)`
   }
 `;
 
-const SearchIcon = styled.img<DisplayModePropsType>`
-  max-width: 20px;
-  max-height: 20px;
+const SearchIcon = styled.img<SearchIconPropsType>`
+  ${(props) =>
+    props.activeSearch
+      ? css`
+          max-width: 18px;
+          max-height: 18px;
+        `
+      : css`
+          max-width: 20px;
+          max-height: 20px;
+        `}
   padding: 4px;
   cursor: pointer;
   -webkit-user-drag: none;
