@@ -66,46 +66,57 @@ const Search = (): JSX.Element => {
   useMountEffect(() => setHeaderSearchBar(true));
 
   return (
-    <Box count={itemsLine?.length || 0}>
-      {itemsLine?.map((item, index) => (
-        <div key={index}>
-          {(() => {
-            let startIdx: number = index;
+    <Box>
+      <ResultBox count={itemsLine?.length || 0}>
+        {itemsLine?.map((item, index) => (
+          <div key={index}>
+            {(() => {
+              let startIdx: number = index;
 
-            return images?.map((item, index) => {
-              const findIdx: number = startIdx;
-              startIdx += itemsLine.length;
+              return images?.map((item, index) => {
+                const findIdx: number = startIdx;
+                startIdx += itemsLine.length;
 
-              return (
-                images[findIdx] && (
-                  <Item
-                    key={index}
-                    displayTheme={displayTheme}
-                    deviceResponsive={deviceResponsive}
-                    deviceOrientation={deviceOrientation}
-                  >
-                    <ImageBox>
-                      <Image src={images[findIdx].thumbnailUrl} />
-                    </ImageBox>
-                    <Name>{images[findIdx].name}</Name>
-                  </Item>
-                )
-              );
-            });
-          })()}
-        </div>
-      ))}
+                return (
+                  images[findIdx] && (
+                    <Item
+                      key={index}
+                      displayTheme={displayTheme}
+                      deviceResponsive={deviceResponsive}
+                      deviceOrientation={deviceOrientation}
+                    >
+                      <ImageBox>
+                        <Image src={images[findIdx].thumbnailUrl} />
+                      </ImageBox>
+                      <Name>{images[findIdx].name}</Name>
+                    </Item>
+                  )
+                );
+              });
+            })()}
+          </div>
+        ))}
+      </ResultBox>
+      <More displayTheme={displayTheme} onClick={() => window.open(data?.webSearchUrl)}>
+        찾는 이미지가 없나요?
+      </More>
     </Box>
   );
 };
 
 export default Search;
 
-const Box = styled.article<{ count: number }>`
+const Box = styled.article`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+`;
+
+const ResultBox = styled.div<{ count: number }>`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 16px;
 
   & > div {
     width: calc(100% / ${(props) => props.count} - 10px);
@@ -155,4 +166,17 @@ const Name = styled.label`
   text-align: center;
   word-break: break-all;
   overflow: hidden;
+`;
+
+const More = styled.button<{ displayTheme: DisplayModeType }>`
+  margin: 8px 0 20px;
+  padding: 8px 16px;
+  background-color: unset;
+  border-radius: 99px;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+
+  ${(props) => props.theme[props.displayTheme].colors.more};
 `;

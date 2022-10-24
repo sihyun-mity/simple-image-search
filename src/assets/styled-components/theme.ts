@@ -38,6 +38,10 @@ const light = {
         color: #000;
       }
     `,
+    more: css`
+      border: 1px solid #cecece;
+      color: #111;
+    `,
   },
 };
 
@@ -77,6 +81,10 @@ const dark = {
       & > label {
         color: #fff;
       }
+    `,
+    more: css`
+      border: 1px solid #454545;
+      color: #eee;
     `,
   },
 };
