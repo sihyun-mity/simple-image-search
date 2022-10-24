@@ -4,7 +4,8 @@ import { useQuery } from 'react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useMountEffect, usePathQuery } from '../../hooks';
-import { headerSearchBar, orientationType, responsiveType } from '../../store';
+import { displayMode, headerSearchBar, orientationType, responsiveType } from '../../store';
+import DisplayModeType from '../../types/DisplayModeType';
 import SearchResponseDataModel from './types/SearchResponseDataModel';
 
 const Search = (): JSX.Element => {
@@ -12,6 +13,7 @@ const Search = (): JSX.Element => {
   const setHeaderSearchBar = useSetRecoilState(headerSearchBar);
   const deviceResponsive = useRecoilValue(responsiveType);
   const deviceOrientation = useRecoilValue(orientationType);
+  const displayTheme = useRecoilValue(displayMode);
   const [itemsLine, setItemsLine] = useState<number[]>();
 
   const calculateItemsLine = useCallback((): void => {
@@ -58,7 +60,7 @@ const Search = (): JSX.Element => {
   return (
     <Box count={itemsLine?.length || 0}>
       {itemsLine?.map((item, index) => (
-        <Items key={index}>
+        <div key={index}>
           {(() => {
             let startIdx: number = index;
 
@@ -68,7 +70,7 @@ const Search = (): JSX.Element => {
 
               return (
                 images[findIdx] && (
-                  <Item key={index}>
+                  <Item key={index} displayTheme={displayTheme}>
                     <Image src={images[findIdx].thumbnailUrl} />
                     <Name>{images[findIdx].name}</Name>
                   </Item>
@@ -76,7 +78,7 @@ const Search = (): JSX.Element => {
               );
             });
           })()}
-        </Items>
+        </div>
       ))}
     </Box>
   );
@@ -95,22 +97,20 @@ const Box = styled.article<{ count: number }>`
   }
 `;
 
-const Items = styled.div``;
-
-const Item = styled.div`
+const Item = styled.div<{ displayTheme: DisplayModeType }>`
   width: 100%;
   height: fit-content;
   display: inline-flex;
   flex-direction: column;
-  background-color: green;
   margin-bottom: 16px;
+
+  ${(props) => props.theme[props.displayTheme].colors.item};
 `;
 
-const Image = styled.img`
-  /* max-width: 100%;
-  max-height: 100%; */
-`;
+const Image = styled.img``;
 
 const Name = styled.label`
-  color: white;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  word-break: break-all;
 `;

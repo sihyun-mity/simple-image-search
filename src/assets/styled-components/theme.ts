@@ -30,6 +30,11 @@ const light = {
         color: #000;
       }
     `,
+    item: css`
+      & > label {
+        color: #000;
+      }
+    `,
   },
 };
 
@@ -59,6 +64,11 @@ const dark = {
       background-color: #676767;
 
       & > input {
+        color: #fff;
+      }
+    `,
+    item: css`
+      & > label {
         color: #fff;
       }
     `,
