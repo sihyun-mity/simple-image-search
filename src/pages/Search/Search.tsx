@@ -87,10 +87,10 @@ const Search = (): JSX.Element => {
                       deviceResponsive={deviceResponsive}
                       deviceOrientation={deviceOrientation}
                     >
-                      <ImageBox>
+                      <ImageBox onClick={() => window.open(images[findIdx].contentUrl)}>
                         <Image src={images[findIdx].thumbnailUrl} />
                       </ImageBox>
-                      <Name>{images[findIdx].name}</Name>
+                      <Name onClick={() => window.open(images[findIdx].hostPageUrl)}>{images[findIdx].name}</Name>
                     </Item>
                   )
                 );
@@ -151,6 +151,7 @@ const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -159,15 +160,17 @@ const Image = styled.img`
 `;
 
 const Name = styled.label`
-  display: -webkit-box;
+  width: fit-content;
+  display: -webkit-inline-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   padding: 0 8px;
+  margin: 0 auto;
   margin-top: 10px;
   font-size: 0.8rem;
-  text-align: center;
   word-break: break-all;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 const More = styled.button<{ displayTheme: DisplayModeType }>`
