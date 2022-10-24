@@ -31,6 +31,9 @@ const light = {
       }
     `,
     item: css`
+      background-color: #fff;
+      box-shadow: 0 0 0 1px rgb(0 0 0 / 5%), 0 2px 3px 0 rgb(0 0 0 / 10%);
+
       & > label {
         color: #000;
       }
@@ -68,6 +71,9 @@ const dark = {
       }
     `,
     item: css`
+      background-color: #121212;
+      box-shadow: 0 0 0 1px rgb(255 255 255 / 5%), 0 2px 3px 0 rgb(255 255 255 / 5%);
+
       & > label {
         color: #fff;
       }

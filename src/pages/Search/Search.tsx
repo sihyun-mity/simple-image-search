@@ -2,11 +2,19 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useMountEffect, usePathQuery } from '../../hooks';
 import { displayMode, headerSearchBar, orientationType, responsiveType } from '../../store';
 import DisplayModeType from '../../types/DisplayModeType';
+import OrientationType from '../../types/OrientationType';
+import ResponsiveType from '../../types/ResponsiveType';
 import SearchResponseDataModel from './types/SearchResponseDataModel';
+
+interface ItemPropsType {
+  displayTheme: DisplayModeType;
+  deviceResponsive: ResponsiveType;
+  deviceOrientation: OrientationType;
+}
 
 const Search = (): JSX.Element => {
   const qs = usePathQuery();
@@ -70,8 +78,15 @@ const Search = (): JSX.Element => {
 
               return (
                 images[findIdx] && (
-                  <Item key={index} displayTheme={displayTheme}>
-                    <Image src={images[findIdx].thumbnailUrl} />
+                  <Item
+                    key={index}
+                    displayTheme={displayTheme}
+                    deviceResponsive={deviceResponsive}
+                    deviceOrientation={deviceOrientation}
+                  >
+                    <ImageBox>
+                      <Image src={images[findIdx].thumbnailUrl} />
+                    </ImageBox>
                     <Name>{images[findIdx].name}</Name>
                   </Item>
                 )
@@ -97,20 +112,47 @@ const Box = styled.article<{ count: number }>`
   }
 `;
 
-const Item = styled.div<{ displayTheme: DisplayModeType }>`
+const Item = styled.div<ItemPropsType>`
   width: 100%;
   height: fit-content;
   display: inline-flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  border-radius: 6px;
 
   ${(props) => props.theme[props.displayTheme].colors.item};
+
+  ${(props) =>
+    (props.deviceOrientation === 'landscape' || props.deviceResponsive !== 'mobile') &&
+    css`
+      height: 22vh;
+
+      & > div {
+        width: 100%;
+        height: 18vh;
+      }
+    `}
 `;
 
-const Image = styled.img``;
+const ImageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+`;
 
 const Name = styled.label`
-  margin-top: 6px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  padding: 0 8px;
+  margin-top: 10px;
   font-size: 0.8rem;
+  text-align: center;
   word-break: break-all;
+  overflow: hidden;
 `;
