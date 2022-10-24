@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
@@ -23,6 +24,7 @@ const Search = (): JSX.Element => {
   const deviceOrientation = useRecoilValue(orientationType);
   const displayTheme = useRecoilValue(displayMode);
   const [itemsLine, setItemsLine] = useState<number[]>();
+  const { t } = useTranslation();
 
   const calculateItemsLine = useCallback((): void => {
     let count: number;
@@ -98,7 +100,7 @@ const Search = (): JSX.Element => {
         ))}
       </ResultBox>
       <More displayTheme={displayTheme} onClick={() => window.open(data?.webSearchUrl)}>
-        찾는 이미지가 없나요?
+        {t('more')}
       </More>
     </Box>
   );
@@ -174,7 +176,7 @@ const More = styled.button<{ displayTheme: DisplayModeType }>`
   background-color: unset;
   border-radius: 99px;
   box-sizing: border-box;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
 
