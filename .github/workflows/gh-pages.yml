@@ -34,7 +34,7 @@ jobs:
 
       - run: npm ci
       - run: npm run build
-      - run: cp dist/index.html dist/404.html
+      - run: cp /home/runner/work/simple-image-search/simple-image-search/build/index.html /home/runner/work/simple-image-search/simple-image-search/build/404.html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
