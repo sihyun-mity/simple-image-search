@@ -90,7 +90,9 @@ const Search = (): JSX.Element => {
                       <ImageBox onClick={() => window.open(images[findIdx].contentUrl)}>
                         <Image src={images[findIdx].thumbnailUrl} />
                       </ImageBox>
-                      <Name onClick={() => window.open(images[findIdx].hostPageUrl)}>{images[findIdx].name}</Name>
+                      <NameBox>
+                        <Name onClick={() => window.open(images[findIdx].hostPageUrl)}>{images[findIdx].name}</Name>
+                      </NameBox>
                     </Item>
                   )
                 );
@@ -138,11 +140,11 @@ const Item = styled.div<ItemPropsType>`
   ${(props) =>
     (props.deviceOrientation === 'landscape' || props.deviceResponsive !== 'mobile') &&
     css`
-      height: 22vh;
+      height: 24vh;
 
       & > div {
         width: 100%;
-        height: 18vh;
+        height: 19.5vh;
       }
     `}
 `;
@@ -159,14 +161,21 @@ const Image = styled.img`
   max-height: 100%;
 `;
 
-const Name = styled.label`
+const NameBox = styled.label`
+  height: 4.5vh;
+  max-height: 4.5vh;
+  padding: 0.75vh 8px;
+  margin: 0 auto;
+  box-sizing: border-box;
+`;
+
+const Name = styled.p`
   width: fit-content;
-  display: -webkit-inline-box;
+  height: fit-content;
+  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  padding: 0 8px;
-  margin: 0 auto;
-  margin-top: 10px;
+  margin: 0;
   font-size: 0.8rem;
   word-break: break-all;
   overflow: hidden;
