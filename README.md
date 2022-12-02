@@ -1,4 +1,4 @@
-# [Simple Image Search](https://sihyun-mity.github-io/simple-image-search)
+# [Simple Image Search](https://sihyun-mity.github.io/simple-image-search)
 
 Bing Search API를 사용합니다.
 
