@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
 import { SearchBar } from '../../components';
 import { useMountEffect } from '../../hooks';
-import { displayMode, isDarkMode, isMobile, viewHeight } from '../../store';
+import { displayMode, headerSearchBar, isDarkMode, isMobile, viewHeight } from '../../store';
 import DisplayModeType from '../../types/DisplayModeType';
 import { Attribution } from './components';
 
@@ -22,6 +22,7 @@ const Home = (): JSX.Element => {
   const displayTheme = useRecoilValue(displayMode);
   const darkModeState = useRecoilValue(isDarkMode);
   const mobileDevice = useRecoilValue(isMobile);
+  const setSearchBar = useSetRecoilState(headerSearchBar);
   const [transition, setTransition] = useState<boolean>(false);
 
   const getBackgroundImage = async (): Promise<string> => {
@@ -40,7 +41,10 @@ const Home = (): JSX.Element => {
 
   useEffect(() => loadBackgroundImage(), [image]);
 
-  useMountEffect(() => !mobileDevice && document.getElementById('searchBar_home')?.focus());
+  useMountEffect(() => {
+    setSearchBar(false);
+    !mobileDevice && document.getElementById('searchBar_home')?.focus();
+  });
 
   return (
     <Box vh={vh} darkModeState={darkModeState} image={image} $transition={transition}>
