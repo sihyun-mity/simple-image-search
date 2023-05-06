@@ -25,11 +25,16 @@ const Home = (): JSX.Element => {
   const setSearchBar = useSetRecoilState(headerSearchBar);
   const [transition, setTransition] = useState<boolean>(false);
 
-  const getBackgroundImage = async (): Promise<string> => {
-    const { innerWidth, innerHeight } = window;
-    const size: number = innerWidth > innerHeight ? innerWidth : innerHeight;
-    const { url } = await fetch(`https://picsum.photos/${size}?blur`);
-    return url;
+  const getBackgroundImage = async (): Promise<string | undefined> => {
+    try {
+      const { innerWidth, innerHeight } = window;
+      const size: number = innerWidth > innerHeight ? innerWidth : innerHeight;
+      const data = await fetch(`https://picsum.photos/${size}?blur`);
+      return URL.createObjectURL(await data.blob());
+    } catch (e) {
+      console.error(e);
+      return undefined;
+    }
   };
 
   const loadBackgroundImage = (): void => {
