@@ -1,11 +1,11 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { displayMode, headerSearchBar, isDarkMode, isMobile } from '../../store';
+import { displayMode, headerSearchBar, isDarkMode, isMobile } from '@/store';
 import { DisplayModeControl } from '../atoms';
-import { ReactComponent as Logo } from '../../assets/images/SimpleImageSearch_Logo.svg';
-import search from '../../assets/images/search.png';
-import close from '../../assets/images/close.png';
-import DisplayModePropsType from '../../types/DisplayModePropsType';
+import { ReactComponent as Logo } from '@/assets/images/SimpleImageSearch_Logo.svg';
+import search from '@/assets/images/search.png';
+import close from '@/assets/images/close.png';
+import DisplayModePropsType from '@/types/DisplayModePropsType';
 import { useLocation } from 'react-router-dom';
 import { SearchBar } from '../molecules';
 

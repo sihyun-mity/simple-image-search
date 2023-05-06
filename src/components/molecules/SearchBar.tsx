@@ -1,6 +1,6 @@
 import { useQueryClient } from 'react-query';
 import { createSearchParams } from 'react-router-dom';
-import { useCustomNavigate, usePathQuery } from '../../hooks';
+import { useCustomNavigate, usePathQuery } from '@/hooks';
 import { Input } from '../atoms';
 import InputPropsType from '../atoms/types/InputPropsType';
 

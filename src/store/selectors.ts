@@ -6,7 +6,7 @@ export const isDarkMode = selector<boolean>({
   get: ({ get }) => {
     const displayTheme = get(displayMode);
 
-    return displayTheme === 'dark' ? true : false;
+    return displayTheme === 'dark';
   },
 });
 
@@ -15,6 +15,6 @@ export const isMobile = selector<boolean>({
   get: ({ get }) => {
     const deviceType = get(responsiveType);
 
-    return deviceType === 'mobile' ? true : false;
+    return deviceType === 'mobile';
   },
 });

@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css, keyframes } from 'styled-components';
-import { SearchBar } from '../../components';
-import { useMountEffect } from '../../hooks';
-import { displayMode, headerSearchBar, isDarkMode, isMobile, viewHeight } from '../../store';
-import DisplayModeType from '../../types/DisplayModeType';
+import { SearchBar } from '@/components';
+import { useMountEffect } from '@/hooks';
+import { displayMode, headerSearchBar, isDarkMode, isMobile, viewHeight } from '@/store';
+import DisplayModeType from '@/types/DisplayModeType';
 import { Attribution } from './components';
 
 interface BoxPropsType {

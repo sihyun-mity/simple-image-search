@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
-import { useMountEffect, usePathQuery } from '../../hooks';
-import { displayMode, headerSearchBar, orientationType, responsiveType } from '../../store';
-import DisplayModeType from '../../types/DisplayModeType';
-import OrientationType from '../../types/OrientationType';
-import ResponsiveType from '../../types/ResponsiveType';
-import SearchResponseDataModel from './types/SearchResponseDataModel';
+import { useMountEffect, usePathQuery } from '@/hooks';
+import { displayMode, headerSearchBar, orientationType, responsiveType } from '@/store';
+import DisplayModeType from '@/types/DisplayModeType';
+import OrientationType from '@/types/OrientationType';
+import ResponsiveType from '@/types/ResponsiveType';
+import SearchResponseDataModel from '@/pages/Search/types/SearchResponseDataModel';
 
 interface ItemPropsType {
   displayTheme: DisplayModeType;
