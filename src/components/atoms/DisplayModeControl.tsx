@@ -1,12 +1,12 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { displayMode, isDarkMode, isMobile } from '../../store';
-import sun from '../../assets/images/sun.png';
-import moon from '../../assets/images/moon.png';
+import { displayMode, isDarkMode, isMobile } from '@/store';
+import sun from '@/assets/images/sun.png';
+import moon from '@/assets/images/moon.png';
 import ToggleSwitch from './ToggleSwitch';
-import DisplayModeType from '../../types/DisplayModeType';
+import DisplayModeType from '@/types/DisplayModeType';
 import { useCallback, useLayoutEffect, useState } from 'react';
-import { useMountEffect } from '../../hooks';
+import { useMountEffect } from '@/hooks';
 import { useTranslation } from 'react-i18next';
 
 const DisplayModeControl = (): JSX.Element => {

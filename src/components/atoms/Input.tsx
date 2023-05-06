@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { displayMode, isDarkMode, isMobile } from '../../store';
-import InputPropsType from './types/InputPropsType';
-import search from '../../assets/images/search.png';
-import DisplayModeType from '../../types/DisplayModeType';
+import { displayMode, isDarkMode, isMobile } from '@/store';
+import search from '@/assets/images/search.png';
+import InputPropsType from '@/components/atoms/types/InputPropsType';
+import DisplayModeType from '@/types/DisplayModeType';
 
 interface StyledPropsType extends InputPropsType {
-  displayTheme: DisplayModeType;
+  displayTheme?: DisplayModeType;
   [props: string]: any;
 }
 
@@ -63,7 +63,7 @@ const Box = styled.label<StyledPropsType>`
   opacity: 0.8;
   cursor: text;
 
-  ${(props) => props.theme[props.displayTheme].colors.input}
+  ${(props) => props.theme[props.displayTheme || 'light'].colors.input}
 
   background-color: ${(props) => props.color};
 
@@ -82,7 +82,7 @@ const Box = styled.label<StyledPropsType>`
 
         ${props.focus &&
         css`
-          box-shadow: 0px 0px 0px 4px ${props.darkModeState ? `rgba(255, 255, 255, 0.6)` : `rgba(55, 55, 55, 0.6)`};
+          box-shadow: 0 0 0 4px ${props.darkModeState ? `rgba(255, 255, 255, 0.6)` : `rgba(55, 55, 55, 0.6)`};
         `}
       }
     `}

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Loading from 'react-loading';
 import { useRecoilValue } from 'recoil';
-import { isDarkMode, viewHeight } from '../../store';
+import { isDarkMode, viewHeight } from '@/store';
 import { useTranslation } from 'react-i18next';
 
 interface LoadingScreenPropsType {

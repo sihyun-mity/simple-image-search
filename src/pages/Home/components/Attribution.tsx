@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import arrow from '../../../assets/images/chevron-upwards-arrow.png';
-import { isMobile } from '../../../store';
+import arrow from '@/assets/images/chevron-upwards-arrow.png';
+import { isMobile } from '@/store';
 
 const Attribution = () => {
   const [open, setOpen] = useState(false);

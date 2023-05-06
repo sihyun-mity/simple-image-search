@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://sihyun-mity.github.io/simple-image-search",
+  "engines": {
+    "node": ">=14.0.0 <15.0.0"
+  },
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -12,6 +16,7 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "axios": "^1.1.3",
+    "craco-alias": "^3.0.1",
     "env-cmd": "^10.1.0",
     "i18next": "^21.10.0",
     "react": "^18.2.0",
@@ -29,10 +34,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "env-cmd -f .env react-scripts start",
-    "start-https": "env-cmd -f .env HTTPS=true react-scripts start",
-    "build": "env-cmd -f .env react-scripts build",
-    "test": "react-scripts test",
+    "start": "env-cmd -f .env craco start",
+    "start-https": "env-cmd -f .env HTTPS=true craco start",
+    "build": "env-cmd -f .env craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
