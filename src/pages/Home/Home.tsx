@@ -28,8 +28,8 @@ const Home = (): JSX.Element => {
   const getBackgroundImage = async (): Promise<string> => {
     const { innerWidth, innerHeight } = window;
     const size: number = innerWidth > innerHeight ? innerWidth : innerHeight;
-    const { url } = await fetch(`https://picsum.photos/${size}?blur`);
-    return url;
+    const data = await fetch(`https://picsum.photos/${size}?blur`);
+    return URL.createObjectURL(await data.blob());
   };
 
   const loadBackgroundImage = (): void => {
