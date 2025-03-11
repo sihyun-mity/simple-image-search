@@ -4,7 +4,8 @@
   "private": true,
   "homepage": "https://sihyun-mity.github.io/simple-image-search",
   "engines": {
-    "node": ">=14.0.0 <15.0.0"
+    "node": ">=16.20.0 <17.0.0",
+    "npm": ">=8.19.4 <9.0.0"
   },
   "dependencies": {
     "@craco/craco": "^7.1.0",
