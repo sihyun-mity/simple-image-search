@@ -2,6 +2,11 @@
 
 Bing Search API를 사용합니다.
 
+## Deprecated
+
+[2025년 8월 11일에 사용 중지되는 Bing Search API](https://learn.microsoft.com/ko-kr/lifecycle/announcements/bing-search-api-retirement)
+API 사용 중지로 인해 이 프로젝트는 보관되었습니다.
+
 ## 사용 방법
 
 ### 원본 이미지 가져오기
